@@ -16,5 +16,7 @@ namespace DifferentLearn.Data.Entites.User
         [MaxLength(200,ErrorMessage ="{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
         public string RoleName { get; set; }
 
+        //comment
+
     }
 }
