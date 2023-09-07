@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Different Learn | @ViewData["Title"]</title>
+    <Partial name="_Metatags" />
+    <partial name="_Styles" />
+
+</head>
+<body>
+    <!-- Start Preloader Area -->
+    <div class="preloader-area">
+        <div class="spinner">
+            <div class="inner">
+                <div class="disc"></div>
+                <div class="disc"></div>
+                <div class="disc"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+    <partial name="_NavbarArea" />
+    <!--Start banner area-->
+    <div class="banner-area ">
+        <div class="container-fluid p-0">
+            <div class="row align-items-center ban">
+              
+            @RenderSection("BannerDetail",false)
+            </div>
+        </div>
+    </div>
+    <!--End banner area-->
+    @RenderBody()
+    <!--Start Footer area-->
+    <partial name="_Footer" />
+    <!--End Footer area-->
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class="ri-arrow-up-s-line"></i>
+        <i class="ri-arrow-up-s-line"></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Jquery js -->
+    <partial name="_Scripts" />
+</body>
+
+</html>

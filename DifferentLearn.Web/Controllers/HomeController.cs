@@ -7,7 +7,7 @@ namespace DifferentLearn.Web.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Sallam dostan!!!!");
+            return View();
         }
     }
 }
