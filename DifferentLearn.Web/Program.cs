@@ -1,12 +1,28 @@
+using DifferentLearn.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
+ 
+
+#region Containers
 
 // Add services to the container.
-
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
-//builder.Services.AddRazorPages();
-//builder.Services.AddControllersWithViews();
+
+
+#region Context
+builder.Services.AddDbContext<DiffLearnContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DiffLearnConn"));
+});
+#endregion
+
+#endregion
+
+
+#region Piplines
 
 var app = builder.Build();
 
@@ -25,7 +41,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//app.MapRazorPages();
 app.UseMvc(routes =>
 {
     routes.MapRoute(
@@ -37,16 +52,4 @@ app.UseMvc(routes =>
 
 app.Run();
 
-
-#region Comments
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//          name: "areas",
-//          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-//        );
-//    endpoints.MapControllerRoute(
-//        name: "default",
-//        pattern: "{controller=Home}/{action=Index}/{id?}");
-//});
 #endregion

@@ -31,11 +31,13 @@ namespace DifferentLearn.Data.Entites.User
         [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
         public string Password { get; set; }
         [Display(Name = "کد فعالسازی")]
-        public string ActiveCode { get; set; }
+        [MaxLength(50, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
+        public string? ActiveCode { get; set; }
         [Display(Name = "وضعیت")]
         public bool IsActive { get; set; }
         [Display(Name = "آواتار")]
-        public string UserAvatar { get; set; }
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
+        public string? UserAvatar { get; set; }
         [Display(Name = "تاریخ ثبت نام")]
         public DateTime RegisterDate { get; set; }
 
