@@ -9,14 +9,21 @@ namespace DifferentLearn.Data.Entites.User
 {
     public class Role
     {
+        public Role()
+        {
+            
+        }
+
         [Key]
         public int RoleId { get; set; }
         [Required(ErrorMessage ="لطفا {0} را وارد کنید!!!")]
         [Display(Name = "عنوان نقش")]
         [MaxLength(200,ErrorMessage ="{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
-        public string RoleName { get; set; }
+        public string RoleTitle { get; set; }
 
-        //comment
+        #region Relations
+        public virtual List<UserRole> UserRoles { get; set; }
+        #endregion
 
     }
 }
