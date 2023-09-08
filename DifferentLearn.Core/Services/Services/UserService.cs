@@ -21,31 +21,31 @@ namespace DifferentLearn.Core.Services.Services
         {
             _context = context;
         }
-        public async Task<bool> IsExistEmail(string email)
+        public async Task<bool> IsExistEmailAsync(string email)
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
         }
 
-        public int AddUser(User user)
+        public async Task<int> AddUserAsync(User user)
         {
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return user.UserId;
         }
 
-        public async Task<bool> IsExistUserName(string username)
+        public async Task<bool> IsExistUserNameAsync(string username)
         {
             return await _context.Users.AnyAsync(u => u.UserName == username);
         }
 
-        public async Task<User> LoginUser(LoginViewModel login)
+        public async Task<User> LoginUserAsync(LoginViewModel login)
         {
             string hashPassword = PasswordHelper.EncodePasswordMD5(login.Password);
             string fixEmail=FixedText.FixEmail(login.Email);
             return await _context.Users.SingleOrDefaultAsync(u => u.Email == fixEmail && u.Password == hashPassword);
         }
 
-        public async Task<bool> ActiveAccount(string activecode)
+        public async Task<bool> ActiveAccountAsync(string activecode)
         {
             var user= await _context.Users.SingleOrDefaultAsync(u => u.ActiveCode == activecode);
             if (user == null || user.IsActive)
@@ -56,6 +56,22 @@ namespace DifferentLearn.Core.Services.Services
             user.ActiveCode = NameGenerator.GenerateUniqCode();
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task<User> GetUserByActiveCodeAsync(string activecode)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.ActiveCode == activecode);
+        }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            _context.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

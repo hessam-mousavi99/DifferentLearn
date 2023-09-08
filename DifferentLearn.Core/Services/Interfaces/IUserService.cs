@@ -10,11 +10,13 @@ namespace DifferentLearn.Core.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<bool> IsExistUserName(string username);
-        Task<bool> IsExistEmail(string email);
-        int AddUser(User user);
-        Task<User> LoginUser(LoginViewModel login);
-        Task<bool> ActiveAccount(string activecode);
-
+        Task<bool> IsExistUserNameAsync(string username);
+        Task<bool> IsExistEmailAsync(string email);
+        Task<int> AddUserAsync(User user);
+        Task<User> LoginUserAsync(LoginViewModel login);
+        Task<bool> ActiveAccountAsync(string activecode);
+        Task<User> GetUserByEmailAsync(string email);
+        Task<User> GetUserByActiveCodeAsync(string activecode);
+        Task UpdateUserAsync(User user);
     }
 }

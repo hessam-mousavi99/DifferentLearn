@@ -1,3 +1,4 @@
+using DifferentLearn.Core.Convertors;
 using DifferentLearn.Core.Services.Interfaces;
 using DifferentLearn.Core.Services.Services;
 using DifferentLearn.Data.Contexts;
@@ -41,7 +42,7 @@ builder.Services.AddDbContext<DiffLearnContext>(option =>
 
 #region Ioc
 builder.Services.AddTransient<IUserService, UserService>();
-
+builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 #endregion
 
 #endregion
