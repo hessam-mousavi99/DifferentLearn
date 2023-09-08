@@ -168,10 +168,18 @@
                                     <span>0</span>
                                 </div>
                             </li> *@
-                            <li>
-                                <a href="login" class="default-btn">ورود</a>
-                                <a href="register" class="default-btn">ثبت نام</a>
-                            </li>
+                          @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="#" class="default-btn">داشبورد</a>
+                                <a href="Logout" class="default-btn">خروج</a>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="login" class="default-btn">ورود</a>
+                                    <a href="register" class="default-btn">ثبت نام</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -207,10 +215,18 @@
                                     <span>0</span>
                                 </div>
                             </li> *@
-                            <li>
-                                <a href="login" class="default-btn">ورود</a>
-                                <a href="register" class="default-btn">ثبت نام</a>
-                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="#" class="default-btn">داشبورد</a>
+                                <a href="Logout" class="default-btn">خروج</a>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="login" class="default-btn">ورود</a>
+                                    <a href="register" class="default-btn">ثبت نام</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
