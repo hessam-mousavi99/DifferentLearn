@@ -1,0 +1,17 @@
+﻿@model DifferentLearn.Data.Entites.User.User
+
+@{
+    ViewData["Title"] = "پایان ثبت نام";
+}
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li style="margin:5px;"><a href="/">خانه</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="register">پایان ثبت نام</a></li>
+    </ul>
+</nav>
+<div class="alert alert-success">
+    <h2>@Model.UserName عزیز !!!</h2>
+    <p>ثبت نام شما انجام شد و ایمیلی حاوی کد فعالسازی به ایمیل: @Model.Email ارسال خواهد شد.</p>
+    <p>جهت ادامه ثبت نام وارد ایمیل خود شوید و روی لینک ارسالی کلیک کنید.</p>
+</div>

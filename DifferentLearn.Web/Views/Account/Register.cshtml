@@ -1,0 +1,45 @@
+﻿@model DifferentLearn.Core.DTOs.RegisterViewModel
+
+@{
+    ViewData["Title"] = "ثبت نام";
+}
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li style="margin:5px;" ><a href="/">خانه</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="register">ثبت نام</a></li>
+    </ul>
+  
+</nav>
+<div class="account-area ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="register">
+                    <h3>ثبت نام</h3>
+                    <form asp-action="register" method="post">
+
+                        <div class="form-group">
+                            <input type="text" asp-for="UserName" class="form-control" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Email" type="email" class="form-control" placeholder=" آدرس ایمیل">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="کلمه عبور">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="RePassword" type="password" class="form-control" placeholder="تکرار کلمه عبور">
+                        </div>
+                        <div class="link-info"><a href="#">ورود به سایت</a></div>
+                        <div asp-validation-summary="All" class="text-danger">
+                        </div>
+                        <button type="submit" class="default-btn btn">ثبت نام</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>

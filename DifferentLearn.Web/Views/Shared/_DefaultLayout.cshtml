@@ -22,14 +22,8 @@
     <!-- End Preloader Area -->
     <partial name="_NavbarArea" />
     <!--Start banner area-->
-    <div class="banner-area ">
-        <div class="container-fluid p-0">
-            <div class="row align-items-center ban">
-              
-            @RenderSection("BannerDetail",false)
-            </div>
-        </div>
-    </div>
+    @RenderSection("BannerDetail",false)
+
     <!--End banner area-->
     @RenderBody()
     <!--Start Footer area-->

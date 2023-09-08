@@ -1,3 +1,5 @@
+using DifferentLearn.Core.Services.Interfaces;
+using DifferentLearn.Core.Services.Services;
 using DifferentLearn.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +19,12 @@ builder.Services.AddDbContext<DiffLearnContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DiffLearnConn"));
 });
+
+#endregion
+
+#region Ioc
+builder.Services.AddTransient<IUserService, UserService>();
+
 #endregion
 
 #endregion
