@@ -103,6 +103,45 @@ namespace DifferentLearn.Core.Services.Services
             }).SingleAsync();
         }
 
+        public async Task<EditProfileViewModel> GetDataForEditProfileUserAsync(string username)
+        {
+            return await _context.Users.Where(u => u.UserName == username).Select(u => new EditProfileViewModel()
+            {
+                UserName = u.UserName,
+                Email = u.Email,
+                AvatarName = u.UserAvatar
+            }).SingleAsync();
+        }
+
+        public async Task EditProfileAsync(string username, EditProfileViewModel editProfile)
+        {
+            if (editProfile.UserAvatar!=null) 
+            {
+                string imagePath = "";
+                if (editProfile.UserAvatar.FileName!= "Default.jpg")
+                {
+                    imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/images/UserAvatar", editProfile.AvatarName);
+                    if (File.Exists(imagePath))
+                    {
+                        File.Delete(imagePath);
+                    }
+                    editProfile.AvatarName = NameGenerator.GenerateUniqCode() + Path.GetExtension(editProfile.UserAvatar.FileName);
+                    imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/images/UserAvatar", editProfile.AvatarName);
+
+                    using (var stream=new FileStream(imagePath,FileMode.Create))
+                    {
+                        await editProfile.UserAvatar.CopyToAsync(stream);
+                    }
+                }
+
+                var user=await GetUserByUserNameAsync(username);
+                user.UserName =editProfile.UserName;
+                user.Email =editProfile.Email;
+                user.UserAvatar = editProfile.AvatarName;
+                await UpdateUserAsync(user);
+            }
+        }
+
 
         #endregion
 

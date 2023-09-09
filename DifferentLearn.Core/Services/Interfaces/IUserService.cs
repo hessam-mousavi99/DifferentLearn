@@ -25,6 +25,8 @@ namespace DifferentLearn.Core.Services.Interfaces
         #region UserPanel
         Task<InformationUserViewModel> GetUserInformationAsync(string username);
         Task<SideBarPanelViewModel> GetSideBarUserPanelData(string username);
+        Task<EditProfileViewModel> GetDataForEditProfileUserAsync(string username);
+        Task EditProfileAsync(string username,EditProfileViewModel editProfile);
         #endregion
     }
 }

@@ -29,6 +29,12 @@
                             }, delay);
                         </script>
                     }
+                    @if (ViewBag.EditProfile == true)
+                    {
+                        <div class="alert alert-warning">
+                            بدلیل ویرایش پروفایل و بارگزاری مجدد اطلاعات مجددا وارد شوید.
+                        </div>
+                    }
                     <h3>ورود</h3>
                     <form asp-action="login" method="post">
                         <div class="form-group">
@@ -37,10 +43,10 @@
                         </div>
                         <div class="form-group">
                             <input asp-for="Password" type="password" id="password" class="form-control" placeholder="کلمه عبور">
-                        <span class="text-danger" asp-validation-for="Password"></span>
+                            <span class="text-danger" asp-validation-for="Password"></span>
                         </div>
                         <div class="form-check">
-                            <input asp-for="RememberMe" class="form-check-input-2" type="checkbox" >
+                            <input asp-for="RememberMe" class="form-check-input-2" type="checkbox">
                             <label>مرا به خاطر بسپار</label>
                         </div>
                         <button type="submit" class="default-btn btn">ورود</button>

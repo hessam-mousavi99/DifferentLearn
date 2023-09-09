@@ -66,8 +66,9 @@ namespace DifferentLearn.Web.Controllers
 
         #region Login
         [Route("login")]
-        public IActionResult Login()
+        public IActionResult Login(bool EditProfile=false)
         {
+            ViewBag.EditProfile=EditProfile;
             return View();
         }
         [Route("login")]
