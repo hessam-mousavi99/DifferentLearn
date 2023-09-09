@@ -43,6 +43,8 @@ namespace DifferentLearn.Data.Entites.User
 
         #region Relations
         public virtual List<UserRole> UserRoles { get; set; }
+
+        public virtual List<Wallet.Wallet> Wallets { get; set; }
         #endregion
 
     }

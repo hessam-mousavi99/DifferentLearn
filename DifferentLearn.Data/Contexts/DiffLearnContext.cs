@@ -1,4 +1,5 @@
 ﻿using DifferentLearn.Data.Entites.User;
+using DifferentLearn.Data.Entites.Wallet;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,13 @@ namespace DifferentLearn.Data.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles{ get; set; }
+        #endregion
+
+        #region Wallet
+
+        public DbSet<WalletType> WalletTypes { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }
+
         #endregion
 
     }

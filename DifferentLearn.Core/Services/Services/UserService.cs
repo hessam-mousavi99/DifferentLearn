@@ -17,11 +17,13 @@ namespace DifferentLearn.Core.Services.Services
     public class UserService : IUserService
     {
         private DiffLearnContext _context;
-        public UserService(DiffLearnContext context)
+        IWalletService _walletService;
+        public UserService(DiffLearnContext context ,IWalletService walletService)
         {
             _context = context;
+            _walletService = walletService;
         }
-        #region Crud
+       
         public async Task<bool> IsExistEmailAsync(string email)
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
@@ -78,9 +80,9 @@ namespace DifferentLearn.Core.Services.Services
         {
             return await _context.Users.SingleOrDefaultAsync(u => u.UserName == username);
         }
-        #endregion
+  
 
-        #region UserPanel
+      
 
         public async Task<InformationUserViewModel> GetUserInformationAsync(string username)
         {
@@ -89,7 +91,7 @@ namespace DifferentLearn.Core.Services.Services
             information.UserName = user.UserName;
             information.Email = user.Email;
             information.RegisterDate = user.RegisterDate;
-            information.Wallet = 0;
+            information.Wallet = await _walletService.BalanceUserWalletAsync(username);
             return information;
         }
 
@@ -155,9 +157,6 @@ namespace DifferentLearn.Core.Services.Services
             user.Password=PasswordHelper.EncodePasswordMD5(newPassword);
             await UpdateUserAsync(user);
         }
-
-
-        #endregion
 
     }
 }

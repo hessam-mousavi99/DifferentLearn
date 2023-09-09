@@ -42,6 +42,7 @@ builder.Services.AddDbContext<DiffLearnContext>(option =>
 
 #region Ioc
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IWalletService, WalletService>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 #endregion
 
