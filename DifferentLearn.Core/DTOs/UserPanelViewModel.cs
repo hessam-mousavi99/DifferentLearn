@@ -36,4 +36,22 @@ namespace DifferentLearn.Core.DTOs
         public IFormFile UserAvatar { get; set; }
         public string AvatarName { get; set; }
     }
+
+    public class ChangePasswordViewModel
+    {
+        [Required(ErrorMessage = "لطفا {0} فعلی را وارد کنید!!!")]
+        [Display(Name = "کلمه عبور")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
+        public string OldPassword { get; set; }
+
+        [Required(ErrorMessage = "لطفا {0} جدید را وارد کنید!!!")]
+        [Display(Name = "کلمه عبور")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
+        public string Password { get; set; }
+        [Required(ErrorMessage = "لطفا {0} جدید را وارد کنید!!!")]
+        [Display(Name = "تکرار کلمه عبور")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
+        [Compare("Password", ErrorMessage = "کلمه های عبور مغایرت دارند")]
+        public string RePassword { get; set; }
+    }
 }

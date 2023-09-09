@@ -3,7 +3,7 @@
 @inject DifferentLearn.Core.Services.Interfaces.IUserService _userService
 
 @{
-    DifferentLearn.Core.DTOs.SideBarPanelViewModel Model = await _userService.GetSideBarUserPanelData(User.Identity.Name);
+    DifferentLearn.Core.DTOs.SideBarPanelViewModel Model = await _userService.GetSideBarUserPanelDataAsync(User.Identity.Name);
 }
 
 <div class="col-md-3 col-sm-4 col-xs-12">
@@ -24,11 +24,11 @@
             <header><h3> میز کار </h3></header>
             <div class="inner">
                 <ul>
-                    <li><a href="userpanel"> مشاهده حساب کابری </a></li>
-                    <li><a href="UserPanel/EditProfile"> ویرایش حساب کابری </a></li>
-                    <li><a href="forgotpassword"> تغییر رمز عبور </a></li>
-                    <li><a href=""> تنظیمات حساب کاربری </a></li>
-                    <li><a href="logout"> خروج از حساب کاربری </a></li>
+                    <li><a href="/UserPanel"> مشاهده حساب کابری </a></li>
+                    <li><a href="/userpanel/EditProfile"> ویرایش حساب کابری </a></li>
+                    <li><a href="/userpanel/ChangePassword"> تغییر رمز عبور </a></li>
+                    <li><a href="#"> تنظیمات حساب کاربری </a></li>
+                    <li><a href="/logout"> خروج از حساب کاربری </a></li>
                 </ul>
             </div>
         </section>

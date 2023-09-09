@@ -41,5 +41,30 @@ namespace DifferentLearn.Web.Areas.UserPanel.Controllers
 
             return Redirect("/login?EditProfile=true");
         }
+
+        [Route("UserPanel/ChangePassword")]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Route("UserPanel/ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePassword)
+        {
+            string Currentusername=User.Identity.Name;
+            if (!ModelState.IsValid)
+            {
+                return View(changePassword);
+            }
+
+            if (! await _userService.CompareOldPasswordAsync(Currentusername, changePassword.OldPassword))
+            {
+                ModelState.AddModelError("OldPassword", "کلمه عبور فعلی صحیح نیست");
+                return View(changePassword);
+            }
+            await _userService.ChangeUserPasswordAsync(Currentusername, changePassword.Password);
+            ViewBag.IsSuccess=true;
+            return View();
+        }
     }
 }

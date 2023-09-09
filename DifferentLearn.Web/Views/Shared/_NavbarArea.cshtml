@@ -170,14 +170,14 @@
                             </li> *@
                           @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="Userpanel" class="default-btn">داشبورد</a>
-                                <a href="Logout" class="default-btn">خروج</a>
+                                <a href="/Userpanel" class="default-btn">داشبورد</a>
+                                <a href="/Logout" class="default-btn">خروج</a>
                             }
                             else
                             {
                                 <li>
-                                    <a href="login" class="default-btn">ورود</a>
-                                    <a href="register" class="default-btn">ثبت نام</a>
+                                    <a href="/login" class="default-btn">ورود</a>
+                                    <a href="/register" class="default-btn">ثبت نام</a>
                                 </li>
                             }
                         </ul>
@@ -217,14 +217,14 @@
                             </li> *@
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="#" class="default-btn">داشبورد</a>
-                                <a href="Logout" class="default-btn">خروج</a>
+                                <a href="/userpanel" class="default-btn">داشبورد</a>
+                                <a href="/Logout" class="default-btn">خروج</a>
                             }
                             else
                             {
                                 <li>
-                                    <a href="login" class="default-btn">ورود</a>
-                                    <a href="register" class="default-btn">ثبت نام</a>
+                                    <a href="/login" class="default-btn">ورود</a>
+                                    <a href="/register" class="default-btn">ثبت نام</a>
                                 </li>
                             }
                         </ul>

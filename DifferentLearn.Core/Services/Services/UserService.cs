@@ -93,7 +93,7 @@ namespace DifferentLearn.Core.Services.Services
             return information;
         }
 
-        public async Task<SideBarPanelViewModel> GetSideBarUserPanelData(string username)
+        public async Task<SideBarPanelViewModel> GetSideBarUserPanelDataAsync(string username)
         {
             return await _context.Users.Where(u => u.UserName == username).Select(u=> new SideBarPanelViewModel()
             {
@@ -140,6 +140,20 @@ namespace DifferentLearn.Core.Services.Services
                 user.UserAvatar = editProfile.AvatarName;
                 await UpdateUserAsync(user);
             }
+        }
+
+        public async Task<bool> CompareOldPasswordAsync( string username,string oldpassword)
+        {
+            string hashOldPassword = PasswordHelper.EncodePasswordMD5(oldpassword);
+            return await _context.Users.AnyAsync(u => u.UserName == username && u.Password == hashOldPassword);
+        
+        }
+
+        public async Task ChangeUserPasswordAsync(string username, string newPassword)
+        {
+            var user = await GetUserByUserNameAsync(username);
+            user.Password=PasswordHelper.EncodePasswordMD5(newPassword);
+            await UpdateUserAsync(user);
         }
 
 
