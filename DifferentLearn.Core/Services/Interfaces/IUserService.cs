@@ -10,6 +10,7 @@ namespace DifferentLearn.Core.Services.Interfaces
 {
     public interface IUserService
     {
+        #region Crud
         Task<bool> IsExistUserNameAsync(string username);
         Task<bool> IsExistEmailAsync(string email);
         Task<int> AddUserAsync(User user);
@@ -18,5 +19,12 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<User> GetUserByEmailAsync(string email);
         Task<User> GetUserByActiveCodeAsync(string activecode);
         Task UpdateUserAsync(User user);
+        Task<User> GetUserByUserNameAsync(string username);
+        #endregion
+
+        #region UserPanel
+        Task<InformationUserViewModel> GetUserInformationAsync(string username);
+        Task<SideBarPanelViewModel> GetSideBarUserPanelData(string username);
+        #endregion
     }
 }

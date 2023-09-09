@@ -21,6 +21,7 @@ namespace DifferentLearn.Core.Services.Services
         {
             _context = context;
         }
+        #region Crud
         public async Task<bool> IsExistEmailAsync(string email)
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
@@ -41,13 +42,13 @@ namespace DifferentLearn.Core.Services.Services
         public async Task<User> LoginUserAsync(LoginViewModel login)
         {
             string hashPassword = PasswordHelper.EncodePasswordMD5(login.Password);
-            string fixEmail=FixedText.FixEmail(login.Email);
+            string fixEmail = FixedText.FixEmail(login.Email);
             return await _context.Users.SingleOrDefaultAsync(u => u.Email == fixEmail && u.Password == hashPassword);
         }
 
         public async Task<bool> ActiveAccountAsync(string activecode)
         {
-            var user= await _context.Users.SingleOrDefaultAsync(u => u.ActiveCode == activecode);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.ActiveCode == activecode);
             if (user == null || user.IsActive)
             {
                 return false;
@@ -73,5 +74,37 @@ namespace DifferentLearn.Core.Services.Services
             _context.Update(user);
             await _context.SaveChangesAsync();
         }
+        public async Task<User> GetUserByUserNameAsync(string username)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.UserName == username);
+        }
+        #endregion
+
+        #region UserPanel
+
+        public async Task<InformationUserViewModel> GetUserInformationAsync(string username)
+        {
+            InformationUserViewModel information=new InformationUserViewModel();
+            var user= await GetUserByUserNameAsync(username);
+            information.UserName = user.UserName;
+            information.Email = user.Email;
+            information.RegisterDate = user.RegisterDate;
+            information.Wallet = 0;
+            return information;
+        }
+
+        public async Task<SideBarPanelViewModel> GetSideBarUserPanelData(string username)
+        {
+            return await _context.Users.Where(u => u.UserName == username).Select(u=> new SideBarPanelViewModel()
+            {
+                UserName = u.UserName,
+                ImageName=u.UserAvatar,
+                RegisterDate=u.RegisterDate
+            }).SingleAsync();
+        }
+
+
+        #endregion
+
     }
 }

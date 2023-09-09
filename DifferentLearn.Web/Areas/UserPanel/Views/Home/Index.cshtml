@@ -1,0 +1,42 @@
+﻿@using DifferentLearn.Core.Convertors;
+@model DifferentLearn.Core.DTOs.InformationUserViewModel
+
+@{
+    ViewData["Title"] = "پنل کاربری " + User.Identity.Name;
+}
+
+
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li style="margin:5px;"><a href="/">خانه</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="userpanel">پنل کاربری</a></li>
+    </ul>
+</nav>
+
+
+<div class="container">
+    <div class="user-account">
+        <div class="row">
+        <partial name="_Sidebar"/>
+            <div class="col-md-9 col-sm-8 col-xs-12">
+                <section class="user-account-content">
+                    <header><h1> داشبورد </h1></header>
+                    <div class="inner">
+                        <div class="account-information">
+                            <h3> اطلاعات کاربری </h3>
+                            <ul>
+                                <li> <i class="zmdi zmdi-assignment-account"></i> نام کاربری :  @Model.UserName </li>
+                                <li> <i class="zmdi zmdi-email"></i> ایمیل : @Model.Email </li>
+                                <li> <i class="zmdi zmdi-calendar-check"></i> تاریخ عضویت : @Model.RegisterDate.ToShamsi() </li>
+                                <li> <i class="zmdi zmdi-balance-wallet"></i> کیف پول : @Model.Wallet تومان </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
