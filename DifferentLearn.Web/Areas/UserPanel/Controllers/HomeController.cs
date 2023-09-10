@@ -66,5 +66,8 @@ namespace DifferentLearn.Web.Areas.UserPanel.Controllers
             ViewBag.IsSuccess=true;
             return View();
         }
+
+       
+
     }
 }
