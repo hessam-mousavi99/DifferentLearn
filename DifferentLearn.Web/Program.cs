@@ -31,7 +31,6 @@ builder.Services.AddAuthentication(options =>
 });
 #endregion
 
-
 #region Context
 builder.Services.AddDbContext<DiffLearnContext>(option =>
 {
@@ -43,6 +42,8 @@ builder.Services.AddDbContext<DiffLearnContext>(option =>
 #region Ioc
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IWalletService, WalletService>();
+builder.Services.AddTransient<IAdminService,AdminService>();
+builder.Services.AddTransient<IPermissionService, Permissionservice>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 #endregion
 
