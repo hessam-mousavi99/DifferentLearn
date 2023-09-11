@@ -20,10 +20,12 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<User> GetUserByActiveCodeAsync(string activecode);
         Task UpdateUserAsync(User user);
         Task<User> GetUserByUserNameAsync(string username);
+        Task<User> GetUserByUserIdAsync(int userid);
    
 
      
         Task<InformationUserViewModel> GetUserInformationAsync(string username);
+        Task<InformationUserViewModel> GetUserInformationAsync(int userid);
         Task<SideBarPanelViewModel> GetSideBarUserPanelDataAsync(string username);
         Task<EditProfileViewModel> GetDataForEditProfileUserAsync(string username);
         Task EditProfileAsync(string username,EditProfileViewModel editProfile);

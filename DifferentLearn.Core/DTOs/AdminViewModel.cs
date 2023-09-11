@@ -32,7 +32,28 @@ namespace DifferentLearn.Core.DTOs
         public string Password { get; set; }
 
         public IFormFile UserAvatar { get; set; }
-        //public string AvatarName { get; set; }
-        //public List<int> SelectedRoles { get; set; }
+      
+    }
+
+    public class EditUserFromAdminViewModel
+    {
+        public int UserId {  get; set; }
+        public string UserName { get; set; }
+       
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید!!!")]
+        [Display(Name = "ایمیل")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
+        [EmailAddress(ErrorMessage = "ایمیل وارد شده معتبر نمیباشد.")]
+        public string Email { get; set; }
+       
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید!!!")]
+        [Display(Name = "کلمه عبور")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
+        public string Password { get; set; }
+
+        public IFormFile UserAvatar { get; set; }
+
+        public List<int>? UserRoles { get; set; }
+        public string  AvatarName { get; set; }
     }
 }

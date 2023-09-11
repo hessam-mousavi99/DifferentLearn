@@ -1,0 +1,40 @@
+﻿@page "{id}"
+@using DifferentLearn.Core.Convertors;
+@model DifferentLearn.Web.Pages.Admin.Users.DeleteUserModel
+@{
+    ViewData["Title"] = "حذف کاربر";
+}
+
+<div class="col-md-8">
+    <div class="card card-danger">
+        <div class="card-header">
+            <h3 class="card-title">حذف کاربر</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+
+        <div class="card-body">
+            <div class="form-group">
+              <form method="post">
+                  <input type="hidden"name="UserId" value="@ViewData["UserId"].ToString()" />
+                  <dl > 
+                      <dt>نام کاربری : </dt>
+                      <dd>@Model.InformationUserViewModel.UserName</dd>
+                        <dt>ایمیل : </dt>
+                        <dd>@Model.InformationUserViewModel.Email</dd>
+                        <dt>موجودی کیف پول : </dt>
+                        <dd>@Model.InformationUserViewModel.Wallet</dd>
+                        <dt>تاریخ عضویت : </dt>
+                        <dd>@Model.InformationUserViewModel.RegisterDate.ToShamsi()</dd>
+                        <dt>
+                            <dd>
+                                <input type="submit" value="حذف" class="btn btn-danger" />
+                            </dd>
+                        </dt>
+                  </dl>
+              </form>
+            </div>
+        </div>
+      
+    </div>
+</div>

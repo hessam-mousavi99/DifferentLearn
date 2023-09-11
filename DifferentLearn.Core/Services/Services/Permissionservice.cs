@@ -31,6 +31,14 @@ namespace DifferentLearn.Core.Services.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task EditRolesUserAsync(int userid, List<int> roleid)
+        {
+            var list =await _context.UserRoles.Where(r => r.UserId == userid).ToListAsync();
+            list.ForEach( r =>  _context.UserRoles.Remove(r));
+
+            await AddRolesToUserAsync(roleid, userid);
+        }
+
         public async Task<List<Role>> GetRolesAsync()
         {
             return await _context.Roles.ToListAsync();

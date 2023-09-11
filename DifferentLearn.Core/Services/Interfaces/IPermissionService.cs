@@ -11,5 +11,6 @@ namespace DifferentLearn.Core.Services.Interfaces
     {
         Task<List<Role>> GetRolesAsync();
         Task AddRolesToUserAsync(List<int> roleids, int userid);
+        Task EditRolesUserAsync(int userid, List<int> roleid);
     }
 }

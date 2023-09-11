@@ -1,0 +1,89 @@
+﻿@page
+@using DifferentLearn.Core.Convertors;
+@model DifferentLearn.Web.Pages.Admin.Users.ListDeleteUsersModel
+@{
+    ViewData["Title"] = "کاربران حذف شده";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header col-12">
+
+                <div class="col-4">
+                    <h3 class="card-title">لسیت کاربران حذف شده</h3>
+                </div>
+
+
+                <div class="card-tools">
+                    <form>
+                        <div class="input-group input-group-sm " style="width: 500px; margin: 0px 10px;">
+                            <input style="margin:0 10px;" type="text" name="filterusername" class="form-control float-right" placeholder="جستجو نام کاربری">
+
+                            <input style="margin: 0 10px; type="text" name="filteremail" class="form-control float-right" placeholder="جستجو ایمیل">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
+                                <a class="btn btn-default btn-sm" href="/admin/users/listdeleteusers">پاک کن</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+           
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>نام کاربری</th>
+                            <th>ایمیل</th>
+                            <th>تاریخ عضویت</th>
+                            <th>وضعیت</th>
+                           
+                        </tr>
+                        @foreach (var user in Model.UsersForAdminViewModel.Users)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>@user.RegisterDate.ToShamsi()</td>
+
+                                @if (user.IsActive == true)
+                                {
+                                    <td class="text text-success">فعال</td>
+                                }
+                                else
+                                {
+                                    <td class="text text-danger">غیر فعال</td>
+                                }
+                             </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+    </div>
+
+
+</div>
+<div class=" col-12">
+
+    <div class="col-4">
+
+        <div class="card-tools">
+            <ul class="pagination ">
+
+                @for (int i = 1; i <= Model.UsersForAdminViewModel.PageCount; i++)
+                {
+                    <li class="paginate_button @((i==Model.UsersForAdminViewModel.CurrentPage)?"Active":"")">
+                        <a class="page-link" href="/Admin/Users?PageId=@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>

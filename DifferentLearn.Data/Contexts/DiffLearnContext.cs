@@ -29,5 +29,11 @@ namespace DifferentLearn.Data.Contexts
 
         #endregion
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

@@ -158,5 +158,21 @@ namespace DifferentLearn.Core.Services.Services
             await UpdateUserAsync(user);
         }
 
+        public async Task<User> GetUserByUserIdAsync(int userid)
+        {
+            return await _context.Users.FindAsync(userid);
+        }
+
+        public async Task<InformationUserViewModel> GetUserInformationAsync(int userid)
+        {
+            var user = await GetUserByUserIdAsync(userid);
+            InformationUserViewModel info = new InformationUserViewModel();
+            info.UserName = user.UserName;
+            info.Email = user.Email;
+            info.RegisterDate = user.RegisterDate;
+            info.Wallet = await _walletService.BalanceUserWalletAsync(user.UserName);
+
+            return info;
+        }
     }
 }
