@@ -10,7 +10,11 @@ namespace DifferentLearn.Core.Services.Interfaces
     public interface IPermissionService
     {
         Task<List<Role>> GetRolesAsync();
+        Task<int> AddRoleAsync(Role role);
         Task AddRolesToUserAsync(List<int> roleids, int userid);
         Task EditRolesUserAsync(int userid, List<int> roleid);
+        Task<Role> GetRoleById(int roleid);
+        Task UpdateRoleAsync(Role role);
+        Task DeleteRoleAsync(Role role);
     }
 }

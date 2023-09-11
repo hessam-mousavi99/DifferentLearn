@@ -20,9 +20,10 @@ namespace DifferentLearn.Data.Entites.User
         [Display(Name = "عنوان نقش")]
         [MaxLength(200,ErrorMessage ="{0} نمیتواند بیشتر از {1} کاراکتر باشد.")]
         public string RoleTitle { get; set; }
+        public bool IsDelete { get; set; }
 
         #region Relations
-        public virtual List<UserRole> UserRoles { get; set; }
+        public virtual List<UserRole>? UserRoles { get; set; }
         #endregion
 
     }

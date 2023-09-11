@@ -1,0 +1,59 @@
+﻿@page "{id}"
+@model DifferentLearn.Web.Pages.Admin.Roles.DeleteRoleModel
+@{
+    ViewData["Title"] = "حذف نقش";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">حذف نقش</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
+                    <li class="breadcrumb-item active">حذف نقش </li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<form role="form" method="post">
+    <div class="row">
+        <input type="hidden" asp-for="Role.RoleId"/>
+        <input type="hidden" asp-for="Role.RoleTitle" />
+        <div style="margin:0 10px 0 0;" class="col-md-8">
+            <div class="card card-danger">
+                <div class="card-header">
+                    <h3 class="card-title">اطلاعات نقش : @Model.Role.RoleTitle</h3>
+                </div>
+                
+                <h4 style="margin:20px;">آیا از حذف این نقش اطمینان دارید؟</h4>
+
+                <div class="card-footer">
+                    <input type="submit" value="حذف" class="btn btn-danger" />
+                    <a asp-page="Index"  type="" class="btn btn-info">انصراف</a>
+                </div>
+
+            </div>
+        </div>
+      @*   <div class="col-md-3">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">دسترسی های نقش</h3>
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="form-group">
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div> *@
+
+    </div>
+</form>

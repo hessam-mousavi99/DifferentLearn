@@ -31,6 +31,7 @@ namespace DifferentLearn.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Role>().HasQueryFilter(x => !x.IsDelete);
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
             base.OnModelCreating(modelBuilder);
         }

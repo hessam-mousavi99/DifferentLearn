@@ -1,6 +1,4 @@
-﻿
-
-@inject DifferentLearn.Core.Services.Interfaces.IUserService _userService
+﻿@inject DifferentLearn.Core.Services.Interfaces.IUserService _userService
 
 @{
     DifferentLearn.Core.DTOs.SideBarPanelViewModel Model = await _userService.GetSideBarUserPanelDataAsync(User.Identity.Name);
@@ -125,7 +123,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-table"></i>
@@ -136,22 +134,34 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-circle-o nav-icon"></i>
+                                        <a href="/admin/roles" class="nav-link">
+                                            <i class="fa fa-key nav-icon"></i>
                                             <p>دسترسی ها</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="/admin/users" class="nav-link">
-                                            <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>کاربران</p>
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fa fa-user-circle-o"></i>
+                                            <p>
+                                                کاربران
+                                                <i class="fa fa-angle-left right"></i>
+                                            </p>
                                         </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/admin/users/ListDeleteUsers" class="nav-link">
-                                            <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>کاربران حذف شده</p>
-                                        </a>
+
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="/admin/users" class="nav-link">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>کاربران</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="/admin/users/ListDeleteUsers" class="nav-link">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>کاربران حذف شده</p>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
@@ -167,11 +177,11 @@
 
 
 
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    @RenderBody()
-    <!-- /.content -->
-</div>
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            @RenderBody()
+            <!-- /.content -->
+        </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <strong>CopyLeft &copy; 2018 <a href="http://github.com/hesammousavi/">حسام موسوی</a>.</strong>

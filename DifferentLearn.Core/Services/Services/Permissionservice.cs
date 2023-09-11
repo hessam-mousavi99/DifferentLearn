@@ -18,6 +18,14 @@ namespace DifferentLearn.Core.Services.Services
             _context = context;
         }
 
+        public async Task<int> AddRoleAsync(Role role)
+        {
+            _context.Roles.Add(role);
+            await _context.SaveChangesAsync();
+            return role.RoleId;
+
+        }
+
         public async Task AddRolesToUserAsync(List<int> roleids, int userid)
         {
             foreach (int roleid in roleids)
@@ -31,17 +39,34 @@ namespace DifferentLearn.Core.Services.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteRoleAsync(Role role)
+        {
+            role.IsDelete = true;
+            await UpdateRoleAsync(role);
+        }
+
         public async Task EditRolesUserAsync(int userid, List<int> roleid)
         {
-            var list =await _context.UserRoles.Where(r => r.UserId == userid).ToListAsync();
-            list.ForEach( r =>  _context.UserRoles.Remove(r));
+            var list = await _context.UserRoles.Where(r => r.UserId == userid).ToListAsync();
+            list.ForEach(r => _context.UserRoles.Remove(r));
 
             await AddRolesToUserAsync(roleid, userid);
+        }
+
+        public async Task<Role> GetRoleById(int roleid)
+        {
+            return await _context.Roles.FindAsync(roleid);
         }
 
         public async Task<List<Role>> GetRolesAsync()
         {
             return await _context.Roles.ToListAsync();
+        }
+
+        public async Task UpdateRoleAsync(Role role)
+        {
+            _context.Roles.Update(role);
+            await _context.SaveChangesAsync();
         }
     }
 }
