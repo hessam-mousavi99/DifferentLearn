@@ -1,4 +1,5 @@
-﻿using DifferentLearn.Data.Entites.User;
+﻿using DifferentLearn.Data.Entites.Permission;
+using DifferentLearn.Data.Entites.User;
 using DifferentLearn.Data.Entites.Wallet;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,7 +16,12 @@ namespace DifferentLearn.Data.Contexts
         {
             
         }
-        
+
+        #region Permission
+        public DbSet<Permission> Permission { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
+        #endregion
+
         #region User
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

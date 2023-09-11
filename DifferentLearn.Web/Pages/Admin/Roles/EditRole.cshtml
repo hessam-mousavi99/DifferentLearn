@@ -1,7 +1,10 @@
 ﻿@page "{id}"
+@using DifferentLearn.Data.Entites.Permission;
 @model DifferentLearn.Web.Pages.Admin.Roles.EditRoleModel
 @{
     ViewData["Title"] = "ویرایش نقش";
+    List<Permission> permissions = ViewData["Permissions"] as List<Permission>;
+    List<int> SelectedPermissions = ViewData["SelectedPermissions"] as List<int>;
 }
 <div class="content-header">
     <div class="container-fluid">
@@ -49,11 +52,41 @@
                 <div class="card-header">
                     <h3 class="card-title">دسترسی های نقش</h3>
                 </div>
-
-
                 <div class="card-body">
 
                     <div class="form-group">
+                        <ul>
+                            @foreach (var per in permissions.Where(p => p.ParentId == null))
+                            {
+                                <li>
+                                    <input type="checkbox" @((SelectedPermissions.Any(p => p == per.PermissionId)) ? "checked" : "") name="SelectedPermission" value="@per.PermissionId" />@per.PermissionTitle
+                                    @if (permissions.Any(p => p.ParentId == per.ParentId))
+                                    {
+                                        <ul>
+                                            @foreach (var sub in permissions.Where(p => p.ParentId == per.PermissionId))
+                                            {
+                                                <li>
+                                                    <input type="checkbox" @((SelectedPermissions.Any(p => p == sub.PermissionId)) ? "checked" : "") name="SelectedPermission" value="@sub.PermissionId" />@sub.PermissionTitle
+                                                    @if (permissions.Any(p => p.ParentId == sub.ParentId))
+                                                    {
+                                                        <ul>
+                                                            @foreach (var sub2 in permissions.Where(p => p.ParentId == sub.PermissionId))
+                                                            {
+                                                                <li>
+                                                                    <input type="checkbox" @((SelectedPermissions.Any(p => p == sub2.PermissionId)) ? "checked" : "") name="SelectedPermission" value="@sub2.PermissionId" />@sub2.PermissionTitle
+                                                                </li>
+                                                            }
+                                                        </ul>
+
+                                                    }
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+
                     </div>
 
                 </div>

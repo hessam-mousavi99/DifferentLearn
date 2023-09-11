@@ -1,4 +1,5 @@
-﻿using DifferentLearn.Data.Entites.User;
+﻿using DifferentLearn.Data.Entites.Permission;
+using DifferentLearn.Data.Entites.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,10 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<Role> GetRoleById(int roleid);
         Task UpdateRoleAsync(Role role);
         Task DeleteRoleAsync(Role role);
+
+        Task<List<Permission>> GetAllPermissionAsync();
+        Task AddPermissionsToRoleAsync(int roleid, List<int> permissions);
+        Task<List<int>> PermissionsRoleAsync(int roleid);
+        Task UpdatePermissionsRoleAsync(int roleid, List<int> permissions);
     }
 }

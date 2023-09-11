@@ -16,11 +16,11 @@ namespace DifferentLearn.Web.Pages.Admin.Roles
 
         [BindProperty]
         public Role Role { get; set; }
-        public void OnGet()
+        public async Task OnGet()
         {
-
+            ViewData["Permissions"]=await _permissionService.GetAllPermissionAsync();
         }
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(List<int> SelectedPermission)
         {
             if (!ModelState.IsValid)
             {
@@ -31,7 +31,8 @@ namespace DifferentLearn.Web.Pages.Admin.Roles
             Role.IsDelete = false;
            int roleId= await _permissionService.AddRoleAsync(Role);
 
-
+            await _permissionService.AddPermissionsToRoleAsync(roleId, SelectedPermission);
+           
             return RedirectToPage("Index");
         }
     }

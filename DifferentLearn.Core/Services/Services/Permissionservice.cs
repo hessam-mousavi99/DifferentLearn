@@ -1,5 +1,6 @@
 ﻿using DifferentLearn.Core.Services.Interfaces;
 using DifferentLearn.Data.Contexts;
+using DifferentLearn.Data.Entites.Permission;
 using DifferentLearn.Data.Entites.User;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,19 @@ namespace DifferentLearn.Core.Services.Services
         public Permissionservice(DiffLearnContext context)
         {
             _context = context;
+        }
+
+        public async Task AddPermissionsToRoleAsync(int roleid, List<int> permissions)
+        {
+            foreach (var permission in permissions)
+            {
+                await _context.RolePermission.AddAsync(new RolePermission()
+                {
+                    PermissionId = permission,
+                    RoleId = roleid
+                });
+            }
+            await _context.SaveChangesAsync();
         }
 
         public async Task<int> AddRoleAsync(Role role)
@@ -53,6 +67,11 @@ namespace DifferentLearn.Core.Services.Services
             await AddRolesToUserAsync(roleid, userid);
         }
 
+        public async Task<List<Permission>> GetAllPermissionAsync()
+        {
+            return await _context.Permission.ToListAsync();
+        }
+
         public async Task<Role> GetRoleById(int roleid)
         {
             return await _context.Roles.FindAsync(roleid);
@@ -61,6 +80,20 @@ namespace DifferentLearn.Core.Services.Services
         public async Task<List<Role>> GetRolesAsync()
         {
             return await _context.Roles.ToListAsync();
+        }
+
+        public async Task<List<int>> PermissionsRoleAsync(int roleid)
+        {
+            return await _context.RolePermission.Where(r => r.RoleId == roleid).Select(r => r.PermissionId).ToListAsync();
+        }
+
+        public async Task UpdatePermissionsRoleAsync(int roleid, List<int> permissions)
+        {
+            var list =await _context.RolePermission.Where(r => r.RoleId == roleid).ToListAsync();
+            list.ForEach(p => _context.RolePermission.Remove(p));
+
+            AddPermissionsToRoleAsync(roleid, permissions);
+
         }
 
         public async Task UpdateRoleAsync(Role role)

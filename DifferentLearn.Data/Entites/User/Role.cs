@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DifferentLearn.Data.Entites.Permission;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace DifferentLearn.Data.Entites.User
 
         #region Relations
         public virtual List<UserRole>? UserRoles { get; set; }
+        public virtual List<RolePermission>? RolePermissions { get; set; }
         #endregion
 
     }
