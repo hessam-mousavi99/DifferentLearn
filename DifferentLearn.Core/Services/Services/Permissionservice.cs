@@ -13,10 +13,12 @@ namespace DifferentLearn.Core.Services.Services
 {
     public class Permissionservice : IPermissionService
     {
+        private IUserService _userService;
         private DiffLearnContext _context;
-        public Permissionservice(DiffLearnContext context)
+        public Permissionservice(DiffLearnContext context, IUserService userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         public async Task AddPermissionsToRoleAsync(int roleid, List<int> permissions)
@@ -51,6 +53,25 @@ namespace DifferentLearn.Core.Services.Services
                 });
             }
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckPermissionAsync(int permissionid, string username)
+        {
+            User user = await _userService.GetUserByUserNameAsync(username);
+
+            int userid = user.UserId;
+
+            List<int> userroles = await _context.UserRoles.Where(r => r.UserId == userid).Select(r => r.RoleId).ToListAsync();
+
+            if (!userroles.Any())
+            {
+                return false;
+            }
+
+            List<int> RolePermission=await _context.RolePermission.Where(p=>p.PermissionId==permissionid)
+                .Select(p=>p.RoleId).ToListAsync();
+
+            return RolePermission.Any(p => userroles.Contains(p));
         }
 
         public async Task DeleteRoleAsync(Role role)
@@ -89,7 +110,7 @@ namespace DifferentLearn.Core.Services.Services
 
         public async Task UpdatePermissionsRoleAsync(int roleid, List<int> permissions)
         {
-            var list =await _context.RolePermission.Where(r => r.RoleId == roleid).ToListAsync();
+            var list = await _context.RolePermission.Where(r => r.RoleId == roleid).ToListAsync();
             list.ForEach(p => _context.RolePermission.Remove(p));
 
             AddPermissionsToRoleAsync(roleid, permissions);

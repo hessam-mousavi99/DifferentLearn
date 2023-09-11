@@ -44,9 +44,9 @@ namespace DifferentLearn.Data.Entites.User
         public bool IsDelete { get; set; }
 
         #region Relations
-        public virtual List<UserRole> UserRoles { get; set; }
+        public virtual List<UserRole>? UserRoles { get; set; }
 
-        public virtual List<Wallet.Wallet> Wallets { get; set; }
+        public virtual List<Wallet.Wallet>? Wallets { get; set; }
         #endregion
 
     }

@@ -22,5 +22,6 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task AddPermissionsToRoleAsync(int roleid, List<int> permissions);
         Task<List<int>> PermissionsRoleAsync(int roleid);
         Task UpdatePermissionsRoleAsync(int roleid, List<int> permissions);
+        Task<bool> CheckPermissionAsync(int permissionid, string username);
     }
 }

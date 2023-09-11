@@ -1,10 +1,12 @@
 using DifferentLearn.Core.DTOs;
+using DifferentLearn.Core.Security;
 using DifferentLearn.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DifferentLearn.Web.Pages.Admin.Users
 {
+    [PermissionChecker(1)]
     public class EditUserModel : PageModel
     {
         IAdminService _adminService;
