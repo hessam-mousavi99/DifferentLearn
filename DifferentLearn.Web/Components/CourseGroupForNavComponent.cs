@@ -10,7 +10,7 @@ namespace DifferentLearn.Web.Components
         {
             _courseService = courseService;
         }
-        public async Task<IViewComponentResult> InvokeAsync() => await Task.FromResult((IViewComponentResult)View("CourseGroupForNav", await _courseService.GetAllGroup()));
+        public async Task<IViewComponentResult> InvokeAsync() => await Task.FromResult((IViewComponentResult)View("CourseGroupForNav", await _courseService.GetAllGroupAsync()));
 
     }
 }

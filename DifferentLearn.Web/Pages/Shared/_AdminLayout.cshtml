@@ -1,8 +1,8 @@
-﻿@inject DifferentLearn.Core.Services.Interfaces.IUserService _userService
+﻿@* @inject DifferentLearn.Core.Services.Interfaces.IUserService _userService
 
 @{
-    DifferentLearn.Core.DTOs.SideBarPanelViewModel Model = await _userService.GetSideBarUserPanelDataAsync(User.Identity.Name);
-}
+    //DifferentLearn.Core.DTOs.SideBarPanelViewModel Model = await _userService.GetSideBarUserPanelDataAsync(User.Identity.Name);
+} *@
 
 
 <!DOCTYPE html>
@@ -93,11 +93,11 @@
                 <div style="direction: rtl">
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                        <div class="image">
+                      @*   <div class="image">
                             <img src="/assets/images/UserAvatar/@Model.ImageName" class="img-circle elevation-2" alt="User Image">
-                        </div>
+                        </div> *@
                         <div class="info">
-                            <a href="#" class="d-block">@Model.UserName</a>
+                            <a href="#" class="d-block">@User.Identity.Name</a>
                         </div>
                     </div>
 
@@ -159,6 +159,41 @@
                                                 <a href="/admin/users/ListDeleteUsers" class="nav-link">
                                                     <i class="fa fa-circle-o nav-icon"></i>
                                                     <p>کاربران حذف شده</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-table"></i>
+                                    <p>
+                                        مدیریت دوره ها
+                                        <i class="fa fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fa fa-eye"></i>
+                                            <p>
+                                                دوره ها
+                                                <i class="fa fa-angle-left right"></i>
+                                            </p>
+                                        </a>
+
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="/admin/courses" class="nav-link">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>لیست دوره ها</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="/admin/users/ListDeleteCourses" class="nav-link">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>دوره حذف شده</p>
                                                 </a>
                                             </li>
                                         </ul>

@@ -1,0 +1,168 @@
+﻿@page
+@model DifferentLearn.Web.Pages.Admin.Courses.CreateCourseModel
+@{
+    ViewData["Title"] = "افزودن دوره جدید";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">افزودن دوره جدید</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
+                    <li class="breadcrumb-item active">ایجاد دوره جدید</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<form role="form" enctype="multipart/form-data" method="post">
+    <div class="row">
+        <div style="margin:0 10px 0 0;" class="col-md-8">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">اطلاعات دوره</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">عنوان دوره</label>
+                        <input asp-for="Course.CourseTitle" type="text" class="form-control" placeholder="عنوان دوره را وارد کنید">
+                        <span class="text text-danger" asp-validation-for="Course.CourseTitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">گروه اصلی</label>
+                        <select class="form-control" asp-for="Course.GroupId" asp-items="@ViewData["Groups"] as SelectList"></select>
+                        <span class="text text-danger" asp-validation-for="Course.GroupId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">گروه فرعی</label>
+                        <select class="form-control" asp-for="Course.SubGroupId" asp-items="@ViewData["SubGroups"] as SelectList"></select>
+                        <span class="text text-danger" asp-validation-for="Course.SubGroupId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">مدرس دوره</label>
+                        <select class="form-control" asp-for="Course.TeacherId" asp-items="@ViewData["Teachers"] as SelectList"></select>
+                        <span class="text text-danger" asp-validation-for="Course.TeacherId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">شرح دوره</label>
+                        <textarea class="form-control" asp-for="Course.CourseDescription" rows="10"></textarea>
+                        <span class="text text-danger" asp-validation-for="Course.CourseDescription"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">قیمت دوره</label>
+                        <input type="number" asp-for="Course.CoursePrice" value="0" class="form-control" />
+                        <span class="text text-danger" asp-validation-for="Course.CoursePrice"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>فایل دمو دوره</label>
+                        <input name="DemoUp" type="file">
+                        <span class="text text-danger" asp-validation-for="Course.DemoFileName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">کلمات کلیدی دوره</label>
+                        <input asp-for="Course.Tags" type="text" class="form-control" placeholder="کلمات کلید دوره را وارد کنید">
+                        <p class="description-block">کلمات را با - از هم جدا کنید</p>
+                        <span class="text text-danger" asp-validation-for="Course.Tags"></span>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">افزودن دوره</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">عکس دوره</h3>
+                </div>
+
+
+                <div class="card-body">
+                    <img id="blah" class="img-thumbnail" src="/assets/images/UserAvatar/Default.jpg" />
+                    <div class="form-group">
+                        <label>انتخاب فایل</label>
+                        <input id="imgInp" type="file" name="ImgCourseUp" />
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">سطح دوره</h3>
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">سطح دوره</label>
+                        <select class="form-control" asp-for="Course.LevelId" asp-items="@ViewData["CourseLevel"] as SelectList"></select>
+                        <span class="text text-danger" asp-validation-for="Course.LevelId"></span>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">وضعیت دوره</h3>
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">وضعیت دوره</label>
+                        <select class="form-control" asp-for="Course.StatusId" asp-items="@ViewData["CourseStatus"] as SelectList"></select>
+                        <span class="text text-danger" asp-validation-for="Course.StatusId"></span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</form>
+@section Scripts{
+
+    <script>
+
+
+        $("#Course_GroupId").change(function () {
+            $("#Course_SubGroupId").empty();
+            $.getJSON("/Home/GetSubGroups/" + $("#Course_GroupId :selected").val(),
+                function (data) {
+                    $.each(data, function () {
+                        $("#Course_SubGroupId").append('<option value=' + this.value + '>' + this.text + '</option>');
+                    });
+                });
+        });
+
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
+
+
+    </script>
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('Course_CourseDescription', {
+            customConfig: '/js/Config.js'
+        });
+    </script>
+}
