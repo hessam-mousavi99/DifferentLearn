@@ -45,6 +45,7 @@ builder.Services.AddTransient<IWalletService, WalletService>();
 builder.Services.AddTransient<IAdminService,AdminService>();
 builder.Services.AddTransient<IPermissionService, Permissionservice>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
+builder.Services.AddTransient<ICourseService, CourseService>();
 #endregion
 
 #endregion

@@ -1,7 +1,9 @@
-﻿using DifferentLearn.Data.Entites.Permission;
+﻿using DifferentLearn.Data.Entites.Course;
+using DifferentLearn.Data.Entites.Permission;
 using DifferentLearn.Data.Entites.User;
 using DifferentLearn.Data.Entites.Wallet;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,11 +37,40 @@ namespace DifferentLearn.Data.Contexts
 
         #endregion
 
+
+        #region Course
+        public DbSet<CourseGroup> CourseGroups { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseEpisode> CourseEpisodes { get; set; }
+        public DbSet<CourseLevel> CourseLevels { get; set; }
+        public DbSet<CourseStatus> CourseStatuses { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>().HasQueryFilter(x => !x.IsDelete);
+
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Role>().HasQueryFilter(r => !r.IsDelete);
+            modelBuilder.Entity<Course>().HasQueryFilter(c => !c.IsDelete);
+            modelBuilder.Entity<CourseGroup>().HasQueryFilter(cg => !cg.IsDelete);
+            modelBuilder.Entity<CourseEpisode>().HasQueryFilter(ce => !ce.IsDelete);
+
+            var Cascadefks = modelBuilder.Model.GetEntityTypes().SelectMany(t => t.GetForeignKeys())
+             .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+            foreach (var fk in Cascadefks)
+            {
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+         
+            }
+
+            modelBuilder.Entity<CourseGroup>().HasMany(x => x.Courses).WithOne(x => x.CourseGroup);
+            modelBuilder.Entity<CourseGroup>().HasMany(x => x.SubGroups).WithOne(x => x.SubCourseGroup);
+
+
+           
+
             base.OnModelCreating(modelBuilder);
+
+
         }
 
     }

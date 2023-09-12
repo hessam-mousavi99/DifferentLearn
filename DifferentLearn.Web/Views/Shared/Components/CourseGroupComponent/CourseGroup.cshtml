@@ -1,0 +1,28 @@
+﻿@using DifferentLearn.Data.Entites.Course;
+@model IEnumerable<CourseGroup>
+<div style="margin: 0;" class="category-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <span class="sub-title"><img src="/assets/images/edu-icon.png" alt="logo"> دسته بندی</span>
+            <h2>دسته بندی دوره ها</h2>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Where(m => m.ParentId == null))
+            {
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-category-card" data-tilt data-aos="fade-up"
+                         data-aos-duration="1000">
+                        <div class="category-content">
+                            <i class="flaticon-bar-chart"></i>
+                            <a href="#"><h3>@item.GroupTitle</h3></a>
+                            <p>تعداد زیر گروه ها : @Model.Where(m=>m.ParentId==item.GroupId).Count()</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center">
+            <a href="courses.html" class="default-btn btn mr-20">مشاهده همه دسته ها</a>
+        </div>
+    </div>
+</div>

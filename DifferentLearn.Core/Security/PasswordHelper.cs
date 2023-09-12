@@ -14,7 +14,7 @@ namespace DifferentLearn.Core.Security
             Byte[] originalByte;
             Byte[] encodeByte;
             MD5 md5;
-            md5=new MD5CryptoServiceProvider();
+            md5 = new MD5CryptoServiceProvider();
             originalByte=ASCIIEncoding.Default.GetBytes(password);
             encodeByte=md5.ComputeHash(originalByte);
             return BitConverter.ToString(encodeByte);

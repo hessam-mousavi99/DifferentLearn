@@ -43,9 +43,9 @@ namespace DifferentLearn.Data.Entites.Wallet
 
         #region Relations
         [ForeignKey("UserId")]
-        public virtual User.User User { get; set; }
+        public  User.User? User { get; set; }
         [ForeignKey("TypeId")]
-        public virtual WalletType WalletType { get; set; }
+        public  WalletType? WalletType { get; set; }
         #endregion
 
     }

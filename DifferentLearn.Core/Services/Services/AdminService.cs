@@ -25,10 +25,7 @@ namespace DifferentLearn.Core.Services.Services
 
         public async Task<int> AddUserFromAdminAsync(CreateUserViewModel createUser)
         {
-            User user = new User();
-            user.UserName = createUser.UserName;
-            user.Email = createUser.Email;
-            user.Password = PasswordHelper.EncodePasswordMD5(createUser.Password);
+            User user = new User() {UserName=createUser.UserName,Email=createUser.Email,Password= PasswordHelper.EncodePasswordMD5(createUser.Password)};
             user.RegisterDate = DateTime.Now;
             if (createUser.UserAvatar != null)
             {
