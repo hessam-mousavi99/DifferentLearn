@@ -1,0 +1,13 @@
+*.jpg
+*.mp4
+.vs
+bin
+obj
+
+appsettings.json
+appsettings.Development.json
+DifferentLearn.Web.csproj
+DifferentLearn.Web.csproj.user
+
+launchSettings.json
+Migrations
