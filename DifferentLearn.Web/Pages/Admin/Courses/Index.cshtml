@@ -39,6 +39,7 @@
                             <th>عنوان دوره</th>
                             <th>تعدادجلسه</th>
                             <th>قیمت دوره</th>
+                            
                             <th>دستورات</th>
                         </tr>
                         @foreach (var course in Model.pagingViewModels.showCourseForAdminViewModels)
@@ -60,9 +61,10 @@
                                 {
                                     <td class="text text-danger">@course.Price</td>
                                 }
+                              
                                 <td>
                                     <a href="/admin/Courses/editCourse/@course.CourseId" class="btn btn-warning btn-sm">ویرایش</a>
-                                    <a href="/admin/courses/DeleteCourse/@course.CourseId" class="btn btn-danger btn-sm">حذف</a>
+                                   @*  <a href="/admin/courses/DeleteCourse/@course.CourseId" class="btn btn-danger btn-sm">حذف</a> *@
                                 </td>
                             </tr>
                         }
@@ -86,7 +88,7 @@
 
                    @for (int i = 1; i <= Model.pagingViewModels.PageCount; i++)
                 {
-                <li class="paginate_button @((i==Model.pagingViewModels.CurrentPage)?"Active":"")">
+                <li class="paginate_button  @((i==Model.pagingViewModels.CurrentPage)? "active":"")">
                 <a class="page-link" href="/Admin/courses?PageId=@i">@i</a>
                 </li>
                 }

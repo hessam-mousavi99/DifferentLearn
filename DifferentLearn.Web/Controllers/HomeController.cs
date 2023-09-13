@@ -59,6 +59,30 @@ namespace DifferentLearn.Web.Controllers
             list.AddRange(await _courseService.GetSubGroupFroManageCourseAsync(id));
             return Json(new SelectList(list, "Value", "Text"));
         }
+
+        [HttpPost]
+        [Route("file-upload")]
+        public IActionResult UploadImage(IFormFile upload, string CKEditorFuncNum, string CKEditor, string langCode)
+        {
+            if (upload.Length <= 0) return null;
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(upload.FileName).ToLower();
+
+            var path = Path.Combine(
+                Directory.GetCurrentDirectory(), "wwwroot/assets/MyImages",
+                fileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                upload.CopyTo(stream);
+
+            }
+
+            var url = $"{"/MyImages/"}{fileName}";
+
+
+            return Json(new { uploaded = true, url });
+        }
     }
 
 }

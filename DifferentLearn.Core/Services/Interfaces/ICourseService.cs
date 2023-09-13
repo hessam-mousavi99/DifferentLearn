@@ -25,6 +25,9 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<List<ShowCourseForAdminViewModel>> GetCoursesForAdminAsync();
         Task<PagingViewModel> PagingForCoursesForAdminAsync(int pageid = 1, string filterCourseTitle = "");
         Task<int> AddCourseAsync(Course course, IFormFile imgcourse, IFormFile democourse);
+        Task<Course> GetCourseByIdAsync(int courseid);
+
+        Task UpdateCourseAsync(Course course, IFormFile imgcourse, IFormFile democourse);
         #endregion
     }
 }

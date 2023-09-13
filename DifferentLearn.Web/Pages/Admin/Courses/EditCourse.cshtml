@@ -1,18 +1,18 @@
-﻿@page
-@model DifferentLearn.Web.Pages.Admin.Courses.CreateCourseModel
+﻿@page "{id}"
+@model DifferentLearn.Web.Pages.Admin.Courses.EditCourseModel
 @{
-    ViewData["Title"] = "افزودن دوره جدید";
+    ViewData["Title"] = "ویرایش دوره";
 }
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">افزودن دوره جدید</h1>
+                <h1 class="m-0 text-dark">ویرایش دوره</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-left">
                     <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
-                    <li class="breadcrumb-item active">ایجاد دوره جدید</li>
+                    <li class="breadcrumb-item active">ویرایش دوره</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,7 +27,10 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-
+                <input type="hidden" asp-for="Course.CreateDate" />
+                <input type="hidden" asp-for="Course.CourseId" />
+                <input type="hidden" asp-for="Course.CourseImageName" />
+                <input type="hidden" asp-for="Course.DemoFileName" />
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">عنوان دوره</label>
@@ -56,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">قیمت دوره</label>
-                        <input type="number" asp-for="Course.CoursePrice" value="0" class="form-control" />
+                        <input type="number" asp-for="Course.CoursePrice" class="form-control" />
                         <span class="text text-danger" asp-validation-for="Course.CoursePrice"></span>
                     </div>
                     <div class="form-group">
@@ -87,7 +90,7 @@
 
 
                 <div class="card-body">
-                    <img id="blah" class="img-thumbnail" src="/assets/images/CourseAvatar/image/no-photo.jpg" />
+                    <img id="blah" class="img-thumbnail" src="/assets/images/CourseAvatar/image/@Model.Course.CourseImageName" />
                     <div class="form-group">
                         <label>انتخاب فایل</label>
                         <input id="imgInp" type="file" name="ImgCourseUp" />
@@ -162,7 +165,7 @@
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('Course_CourseDescription', {
-            customConfig: '/assets/js/Config.js'  
+            customConfig: '/assets/js/Config.js'
         });
     </script>
 }
