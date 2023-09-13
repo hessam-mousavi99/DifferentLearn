@@ -29,5 +29,15 @@ namespace DifferentLearn.Core.Services.Interfaces
 
         Task UpdateCourseAsync(Course course, IFormFile imgcourse, IFormFile democourse);
         #endregion
+
+
+        #region Episode
+        Task<int> AddEpisodeAsync(CourseEpisode courseEpisode, IFormFile episodefile);
+        bool CheckExistFile(string filename);
+        Task<List<CourseEpisode>> GetListEpisodeCourseAsync(int courseid);
+        Task<CourseEpisode> GetEpisodeByIdAsync(int episodeid);
+        Task EditEpisodeAsync(CourseEpisode courseepisode, IFormFile episodefile);
+
+        #endregion
     }
 }

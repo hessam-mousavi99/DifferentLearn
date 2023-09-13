@@ -1,0 +1,84 @@
+﻿@page "{id}"
+@model DifferentLearn.Web.Pages.Admin.Courses.IndexEpisodeModel
+@{
+    ViewData["Title"] = "جلسات دوره";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header col-12">
+              
+                <div class="col-4">
+                    <h3 class="card-title">لسیت جلسات</h3>
+                </div>
+            </div>
+            <div class="row " style="margin:5px;">
+                <a class=" btn btn-success btn-sm" asp-page="CreateEpisode" asp-route-id="@ViewData["CourseId"].ToString()">افزودن جلسه جدید</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>عنوان جلسه</th>
+
+                            <th>زمان جلسه</th>
+                            <th>رایگان</th>
+                            <th>دستورات</th>
+                        </tr>
+                        @foreach (var episode in Model.CourseEpisodes)
+                        {
+                            <tr>
+                              
+                                <td>@episode.EpisodeTitle</td>
+
+                                <td>@episode.EpisodeTime</td>
+
+                                @if (episode.IsFree)
+                                {
+                                    <td class="text text-success">
+                                        هست
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="text text-danger">
+                                        نیست
+                                    </td>
+                                }
+
+                                <td>
+                                    <a href="/admin/Courses/editepisode/@episode.EpisodeId" class="btn btn-warning btn-sm">ویرایش</a>
+                                   @*  <a href="/admin/courses/IndexEpisode/@course.CourseId" class="btn btn-primary btn-sm">جلسات</a> *@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+    </div>
+
+
+</div>
+@* <div class=" col-12">
+
+    <div class="col-4">
+
+        <div class="card-tools">
+            <ul class="pagination ">
+
+                @for (int i = 1; i <= Model.pagingViewModels.PageCount; i++)
+                {
+                    <li class="paginate_button  @((i==Model.pagingViewModels.CurrentPage)? "active":"")">
+                        <a class="page-link" href="/Admin/courses?PageId=@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+</div> *@

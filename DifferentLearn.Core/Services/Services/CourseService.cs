@@ -207,5 +207,58 @@ namespace DifferentLearn.Core.Services.Services
             _context.Courses.Update(course);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> AddEpisodeAsync(CourseEpisode courseEpisode, IFormFile episodefile)
+        {
+            courseEpisode.EpisodeFileName = episodefile.FileName;
+
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/coursefiles", courseEpisode.EpisodeFileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                episodefile.CopyTo(stream);
+            }
+
+            await _context.CourseEpisodes.AddAsync(courseEpisode);
+            await _context.SaveChangesAsync();
+            return courseEpisode.EpisodeId;
+        }
+
+        public bool CheckExistFile(string filename)
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/coursefiles", filename);
+            return File.Exists(filePath);
+
+        }
+
+        public async Task<List<CourseEpisode>> GetListEpisodeCourseAsync(int courseid)
+        {
+            var episodes = await _context.CourseEpisodes.Where(e => e.CourseId == courseid).ToListAsync();
+            return episodes;
+
+        }
+
+        public async Task<CourseEpisode> GetEpisodeByIdAsync(int episodeid)
+        {
+            return await _context.CourseEpisodes.FindAsync(episodeid);
+        }
+
+        public async Task EditEpisodeAsync(CourseEpisode courseepisode, IFormFile episodefile)
+        {
+
+            if (episodefile != null)
+            {
+                string deletefilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/coursefiles", courseepisode.EpisodeFileName);
+                File.Delete(deletefilePath);
+
+                courseepisode.EpisodeFileName = episodefile.FileName;
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/coursefiles", courseepisode.EpisodeFileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    episodefile.CopyTo(stream);
+                }
+            }
+            _context.CourseEpisodes.Update(courseepisode);
+            await _context.SaveChangesAsync();
+        }
     }
 }
