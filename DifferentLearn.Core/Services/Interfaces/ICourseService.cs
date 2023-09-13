@@ -1,4 +1,6 @@
-﻿using DifferentLearn.Data.Entites.Course;
+﻿using DifferentLearn.Core.DTOs.Course;
+using DifferentLearn.Data.Entites.Course;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,12 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<List<SelectListItem>> GetTeachersAsync();
         Task<List<SelectListItem>> GetCourseLevelAsync();
         Task<List<SelectListItem>> GetCourseStatusAsync();
+        #endregion
+
+        #region Course
+        Task<List<ShowCourseForAdminViewModel>> GetCoursesForAdminAsync();
+        Task<PagingViewModel> PagingForCoursesForAdminAsync(int pageid = 1, string filterCourseTitle = "");
+        Task<int> AddCourseAsync(Course course, IFormFile imgcourse, IFormFile democourse);
         #endregion
     }
 }

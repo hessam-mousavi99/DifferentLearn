@@ -18,7 +18,6 @@
                         <div class="input-group input-group-sm " style="width: 500px; margin: 0px 10px;">
                             <input style="margin:0 10px;" type="text" name="filterCourseTitle" class="form-control float-right" placeholder="جستجو نام دوره">
 
-                            <input style="margin: 0 10px; type="text" name="filterCourseGroup" class="form-control float-right" placeholder="جستجو گروه دوره">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
                                 <a class="btn btn-default btn-sm" href="/admin/Courses">پاک کن</a>
@@ -34,36 +33,40 @@
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
-                  @*   <tbody>
+                    <tbody>
                         <tr>
-                            <th>نام کاربری</th>
-                            <th>ایمیل</th>
-                            <th>تاریخ عضویت</th>
-                            <th>وضعیت</th>
+                            <th>تصویر</th>
+                            <th>عنوان دوره</th>
+                            <th>تعدادجلسه</th>
+                            <th>قیمت دوره</th>
                             <th>دستورات</th>
                         </tr>
-                        @foreach (var user in Model.UsersForAdminViewModel.Users)
+                        @foreach (var course in Model.pagingViewModels.showCourseForAdminViewModels)
                         {
                             <tr>
-                                <td>@user.UserName</td>
-                                <td>@user.Email</td>
-                                <td>@user.RegisterDate.ToShamsi()</td>
+                                <td>
+                                    <img  class="img-thumbnail" src="/assets/images/courseavatar/thumb/@course.ImageName" />
+                                </td>
 
-                                @if (user.IsActive == true)
+                                <td>@course.Title</td>
+
+                                <td>@course.EpisodeCount</td>
+                                
+                                @if (course.Price==0)
                                 {
-                                    <td class="text text-success">فعال</td>
+                                    <td class="text text-success">رایگان</td>
                                 }
                                 else
                                 {
-                                    <td class="text text-danger">غیر فعال</td>
+                                    <td class="text text-danger">@course.Price</td>
                                 }
                                 <td>
-                                    <a href="/admin/users/edituser/@user.UserId" class="btn btn-warning btn-sm">ویرایش</a>
-                                    <a href="/admin/users/DeleteUser/@user.UserId" class="btn btn-danger btn-sm">حذف</a>
+                                    <a href="/admin/Courses/editCourse/@course.CourseId" class="btn btn-warning btn-sm">ویرایش</a>
+                                    <a href="/admin/courses/DeleteCourse/@course.CourseId" class="btn btn-danger btn-sm">حذف</a>
                                 </td>
                             </tr>
                         }
-                    </tbody> *@
+                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->
@@ -81,12 +84,12 @@
         <div class="card-tools">
             <ul class="pagination ">
 
-             @*    @for (int i = 1; i <= Model.UsersForAdminViewModel.PageCount; i++)
+                   @for (int i = 1; i <= Model.pagingViewModels.PageCount; i++)
                 {
-                    <li class="paginate_button @((i==Model.UsersForAdminViewModel.CurrentPage)?"Active":"")">
-                        <a class="page-link" href="/Admin/Users?PageId=@i">@i</a>
-                </ li>
-                }*@
+                <li class="paginate_button @((i==Model.pagingViewModels.CurrentPage)?"Active":"")">
+                <a class="page-link" href="/Admin/courses?PageId=@i">@i</a>
+                </li>
+                }
             </ul>
         </div>
     </div>

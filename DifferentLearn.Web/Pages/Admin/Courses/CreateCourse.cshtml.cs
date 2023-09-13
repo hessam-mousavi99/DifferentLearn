@@ -33,13 +33,14 @@ namespace DifferentLearn.Web.Pages.Admin.Courses
             var statuses=await _courseService.GetCourseStatusAsync();
             @ViewData["CourseStatus"] = new SelectList(statuses, "Value", "Text");
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost(IFormFile ImgCourseUp,IFormFile? DemoUp)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            return Page();
+            await _courseService.AddCourseAsync(Course, ImgCourseUp, DemoUp);
+            return RedirectToPage("Index");
         }
     }
 }
