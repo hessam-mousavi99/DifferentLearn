@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<DifferentLearn.Core.DTOs.Course.ShowCourseListViewItem>
+@{
     ViewData["Title"] = "خانه";
 }
 @section BannerDetail{
@@ -29,149 +30,15 @@
             <h2>دوره های محبوب را کاوش کنید</h2>
         </div>
         <div class="courses-slider owl-carousel owl-theme">
-            <div class="courses-single-card mlr-5" data-aos="fade-up"
-                 data-aos-duration="1300">
-                <div class="course-img">
-                    <a href="courses-details.html"><img src="/assets/images/courses/courses-1.jpg" alt="Image"></a>
-                    <div class="courses-prices">
-                        <p style="margin-right: 4px;margin-bottom: 0;">تومان</p>
-                        <p>  300 </p>
 
-                    </div>
-                </div>
-                <div class="courses-content">
-                    <div class="ratings">
-                        <ul>
-                            <li>4.5  (30 نظر)</li>
-                            <li>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="courses-details.html"><h3> لورم ایپسوم متن ساختگی با تولید سادگی </h3></a>
-                    <div class="time">
-                        <ul class="d-flex justify-content">
-                            <i class="flaticon-clock"></i>
-                            <li><a href="">ساعت 6.30</a></li> &nbsp;&nbsp;
-                            <i class="flaticon-programmer"></i>
-                            <li><a href="">دآنش آموز55</a></li>&nbsp;&nbsp;
-                            <i class="flaticon-book-1"></i>
-                            <li> <a href="">22 درس</a> </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="courses-single-card mlr-5" data-aos="fade-up"
-                 data-aos-duration="1400">
-                <div class="course-img">
-                    <a href="courses-details.html"><img src="/assets/images/courses/courses-2.jpg" alt="Image"></a>
-                    <div class="courses-prices">
-                        <p style="margin-right: 4px;margin-bottom: 0;">تومان</p>
-                        <p>  350 </p>
-                    </div>
-                </div>
-                <div class="courses-content">
-                    <div class="ratings">
-                        <ul>
-                            <li>4.5  (30 نظر)</li>
-                            <li>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="courses-details.html"><h3> لورم ایپسوم متن ساختگی با تولید سادگی </h3></a>
-                    <div class="time">
-                        <ul class="d-flex justify-content">
-                            <i class="flaticon-clock"></i>
-                            <li><a href="">ساعت 6.30</a></li> &nbsp;&nbsp;
-                            <i class="flaticon-programmer"></i>
-                            <li><a href="">دآنش آموز55</a></li>&nbsp;&nbsp;
-                            <i class="flaticon-book-1"></i>
-                            <li> <a href="">22 درس</a> </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="courses-single-card mlr-5" data-aos="fade-up"
-                 data-aos-duration="1500">
-                <div class="course-img">
-                    <a href="courses-details.html"><img src="/assets/images/courses/courses-3.jpg" alt="Image"></a>
-                    <div class="courses-prices">
-                        <p style="margin-right: 4px;margin-bottom: 0;">تومان</p>
-                        <p>  200 </p>
-                    </div>
-                </div>
-                <div class="courses-content">
-                    <div class="ratings">
-                        <ul>
-                            <li>4.5  (30 نظر)</li>
-                            <li>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="courses-details.html"><h3> لورم ایپسوم متن ساختگی با تولید سادگی </h3></a>
-                    <div class="time">
-                        <ul class="d-flex justify-content">
-                            <i class="flaticon-clock"></i>
-                            <li><a href="">ساعت 6.30</a></li> &nbsp;&nbsp;
-                            <i class="flaticon-programmer"></i>
-                            <li><a href="">دآنش آموز55</a></li>&nbsp;&nbsp;
-                            <i class="flaticon-book-1"></i>
-                            <li> <a href="">22 درس</a> </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="courses-single-card mlr-5" data-aos="fade-up"
-                 data-aos-duration="1600">
-                <div class="course-img">
-                    <a href="courses-details.html"><img src="/assets/images/courses/courses-2.jpg" alt="Image"></a>
-                    <div class="courses-prices style">
-                        <p>320 تومان</p>
-                    </div>
-                </div>
-                <div class="courses-content">
-                    <div class="ratings">
-                        <ul>
-                            <li>4.5  (30 نظر)</li>
-                            <li>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="courses-details.html"><h3> لورم ایپسوم متن ساختگی با تولید سادگی </h3></a>
-                    <div class="time">
-                        <ul class="d-flex justify-content">
-                            <i class="flaticon-clock"></i>
-                            <li><a href="">ساعت 6.30</a></li> &nbsp;&nbsp;
-                            <i class="flaticon-programmer"></i>
-                            <li><a href="">دآنش آموز55</a></li>&nbsp;&nbsp;
-                            <i class="flaticon-book-1"></i>
-                            <li> <a href="">22 درس</a> </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      @foreach (var item in Model)
+            {
+                <partial name="_BoxCourse" model="@item" />
+            }
+            
         </div>
         <div class="text-center">
-            <a href="courses.html" class="default-btn btn">مشاهده همه دوره ها</a>
+            <a href="/course" class="default-btn btn">مشاهده همه دوره ها</a>
         </div>
     </div>
 </div>

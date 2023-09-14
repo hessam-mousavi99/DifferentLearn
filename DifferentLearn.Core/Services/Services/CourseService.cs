@@ -1,4 +1,5 @@
-﻿using DifferentLearn.Core.Convertors;
+﻿using Azure;
+using DifferentLearn.Core.Convertors;
 using DifferentLearn.Core.DTOs;
 using DifferentLearn.Core.DTOs.Course;
 using DifferentLearn.Core.Generator;
@@ -14,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
@@ -259,6 +261,87 @@ namespace DifferentLearn.Core.Services.Services
             }
             _context.CourseEpisodes.Update(courseepisode);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Tuple<List<ShowCourseListViewItem>, int>> GetShowCourseListViewItemAsync(int pageId = 1, string filter = "", string getType = "all",
+            string orderByType = "date", int startPrice = 0, int EndPrice = 0, List<int> selectedGroups = null,int take=0)
+        {
+            if (take==0)
+            {
+                take = 6;
+            }
+
+            IQueryable<Course> result = _context.Courses;
+            if (!string.IsNullOrEmpty(filter))
+            {
+                result = result.Where(c => c.CourseTitle.Contains(filter));
+            }
+            switch (getType)
+            {
+                case "all":
+                    break;
+                case "buy":
+                    {
+                        result = result.Where(c => c.CoursePrice != 0);
+                        break;
+                    }
+                case "free":
+                    {
+                        result = result.Where(c => c.CoursePrice == 0);
+                        break;
+                    }
+            }
+
+            switch (orderByType)
+            {
+                case "date":
+                    {
+                        result = result.OrderByDescending(c => c.CreateDate);
+                        break;
+                    }
+                case "updatedate":
+                    {
+                        result = result.OrderByDescending(c => c.UpdateDate);
+                        break;
+                    }
+            }
+            if (startPrice>0)
+            {
+                result = result.Where(c => c.CoursePrice > startPrice);
+            }
+            if (EndPrice>0)
+            {
+                result = result.Where(c => c.CoursePrice < EndPrice);
+            }
+            if (selectedGroups!=null && selectedGroups.Any())
+            {
+                //impelement
+                foreach (int GroupId in selectedGroups)
+                {
+                    result=result.Where(c => c.GroupId == GroupId||c.SubGroupId==GroupId);
+                }
+            }
+            int skip = (pageId - 1) * take;
+
+            int pagecount =(int)Math.Ceiling( (decimal)(result.Select(c => new ShowCourseListViewItem()
+            {
+                CourseId = c.CourseId,
+                ImageName = c.CourseImageName,
+                Price = c.CoursePrice,
+                Title = c.CourseTitle,
+                StartDate = c.CreateDate
+            }).Count()) / (decimal)take);
+
+            var query =await result.Select(c => new ShowCourseListViewItem()
+            {
+                CourseId = c.CourseId,
+                ImageName = c.CourseImageName,
+                Price = c.CoursePrice,
+                Title = c.CourseTitle,
+                StartDate = c.CreateDate
+            }).Skip(skip).Take(take).ToListAsync();
+
+            return Tuple.Create(query, pagecount);
         }
     }
 }

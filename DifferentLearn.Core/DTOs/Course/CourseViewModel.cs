@@ -23,4 +23,13 @@ namespace DifferentLearn.Core.DTOs.Course
         public int PageCount { get; set; }
         public int CurrentPage { get; set; }
     }
+
+    public class ShowCourseListViewItem
+    {
+        public int CourseId { get; set; }
+        public string Title { get; set; }
+        public string ImageName { get; set; }
+        public int Price { get; set; }
+        public DateTime StartDate { get; set; }
+    }
 }

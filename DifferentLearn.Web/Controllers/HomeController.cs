@@ -19,7 +19,10 @@ namespace DifferentLearn.Web.Controllers
 
         }
 
-        public IActionResult Index() => View();
+        public async Task<IActionResult> Index()
+        {
+            return View(await _courseService.GetShowCourseListViewItemAsync());
+        } 
 
 
 
