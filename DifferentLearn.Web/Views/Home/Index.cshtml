@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DifferentLearn.Core.DTOs.Course.ShowCourseListViewItem>
+﻿@model Tuple<List<DifferentLearn.Core.DTOs.Course.ShowCourseListViewItem>,int>
 @{
     ViewData["Title"] = "خانه";
 }
@@ -23,7 +23,7 @@
 
 <!--End category area-->
 <!--Start Courses area-->
-<div class="courses-area ptb-100">
+<div class="courses-area ptb-50">
     <div class="container">
         <div class="section-title">
             <span class="sub-title"><img src="/assets/images/edu-icon.png" alt="logo"> دوره های آموزشی</span>
@@ -31,7 +31,7 @@
         </div>
         <div class="courses-slider owl-carousel owl-theme">
 
-      @foreach (var item in Model)
+      @foreach (var item in Model.Item1)
             {
                 <partial name="_BoxCourse" model="@item" />
             }

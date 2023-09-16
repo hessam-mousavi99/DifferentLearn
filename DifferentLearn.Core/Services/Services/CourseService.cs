@@ -274,7 +274,7 @@ namespace DifferentLearn.Core.Services.Services
             IQueryable<Course> result = _context.Courses;
             if (!string.IsNullOrEmpty(filter))
             {
-                result = result.Where(c => c.CourseTitle.Contains(filter));
+                result = result.Where(c => c.CourseTitle.Contains(filter)||c.Tags.Contains(filter));
             }
             switch (getType)
             {
@@ -342,6 +342,35 @@ namespace DifferentLearn.Core.Services.Services
             }).Skip(skip).Take(take).ToListAsync();
 
             return Tuple.Create(query, pagecount);
+        }
+
+        public async Task<CourseInfoViewModel> GetCourseInfoForShowAsync(int courseid)
+        {
+            Course course=await GetCourseByIdAsync(courseid);
+            List<CourseEpisode> episodes=await _context.CourseEpisodes.Where(e=>e.CourseId==course.CourseId).ToListAsync();
+            CourseStatus status = await _context.CourseStatuses.SingleAsync(s => s.StatusId == course.StatusId);
+            CourseLevel level = await _context.CourseLevels.SingleAsync(l => l.LevelId == course.LevelId);
+            User teacher = await _context.Users.SingleAsync(u => u.UserId == course.TeacherId);
+            CourseInfoViewModel info = new CourseInfoViewModel()
+            {
+                CourseId=course.CourseId,
+                CourseTitle=course.CourseTitle,
+                CourseImage=course.CourseImageName,
+                AllEpisodeTime=new TimeSpan(episodes.Sum(e=>e.EpisodeTime.Ticks)),
+                CreateD=course.CreateDate,
+                UpdateD=course.UpdateDate,
+                Demofile=course.DemoFileName,
+                EpisodeCount=episodes.Count(),
+                Description=course.CourseDescription,
+                Episodes=episodes.ToList(),
+                Level=level.LevelTitle,
+                Price=course.CoursePrice,
+                Status=status.StatusTitle,
+                Tags=course.Tags,
+                Teacher=teacher.UserName,
+                TeacherImage=teacher.UserAvatar,
+            };
+            return info;
         }
     }
 }

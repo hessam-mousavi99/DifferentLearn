@@ -1,0 +1,233 @@
+﻿@using DifferentLearn.Core.Convertors;
+@model DifferentLearn.Core.DTOs.Course.CourseInfoViewModel
+
+@{
+    ViewData["Title"] = "جزییات دوره: " + Model.CourseTitle;
+}
+
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li style="margin:5px;"><a href="/">خانه</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="/Showcourse/@Model.CourseId">@Model.CourseTitle</a></li>
+    </ul>
+</nav>
+<div class="courses-details pt-50 pb-50">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="buy-now-area">
+                    <div class="page-header-content bg-gray-light" style="margin:0 0 15px 0;">
+                       <h3>جزییات دوره</h3>
+                   </div>
+                    <div class="buy-content " style="margin:0 0 50px 0;">
+                        <ul>
+                          @if (Model.Price!=0)
+                            {
+                                <li>قیمت<span>@Model.Price.ToString("#,0") تومان</span></li>
+                            }
+                            else
+                            {
+                                <li>قیمت<span>رایگان</span></li>
+                            }
+                            <li>تعداد جلسات<span>@Model.EpisodeCount</span></li>
+                            <li>مدت زمان جلسات<span>@Model.AllEpisodeTime</span></li>
+                            <li>ثبت نام<span>0 دانش آموز</span></li>
+                            <li>تاریخ شروع دوره<span>@Model.CreateD.ToShamsi()</span></li>
+                            <li>تاریخ آخرین بروزرسانی<span>@Model.UpdateD?.ToShamsi()</span></li>
+                        </ul>
+                        <a class="default-btn btn" href="#">هم اکنون خریداری کنید</a>
+                    </div>
+                    <div class="buy-content">
+                        <ul style="list-style:none;">
+                            <div class="box about-img" style="margin:0 0 25px 0;">
+                                <img style="margin:0 60px 0 0; max-width:300px;max-height:300px;" src="/assets/images/UserAvatar/@Model.TeacherImage" />
+                            </div>
+                            <li>مدرس<span>@Model.Teacher</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="share">
+                        <h5>این دوره را به اشتراک بگذارید</h5>
+                        <ul>
+                            <li>
+                                <a href="https://instagram.com/?lang=en" target="_blank"><i class="ri-instagram-line"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://linkedin.com/?lang=en" target="_blank"><i class="ri-linkedin-fill"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank"><i class="ri-facebook-fill"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank"><i class="ri-twitter-fill"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="share">
+                        <h5>کلمات کلیدی دوره</h5>
+                      @foreach (var item in Model.Tags.Split('-',StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <a href="/course?filter=@item">@item</a>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8" >
+                <div class="details">
+                    <h3>@Model.CourseTitle</h3>
+                    <div class="list2">
+                        <ul>
+                            <li><i class="status"> وضعیت دوره:  </i>@Model.Status</li>
+                            <li><i class="fa-level-up"> سطح دوره:  </i>@Model.Level</li>
+                        </ul>
+                    </div>
+                    <img src="/assets/images/courseavatar/image/@Model.CourseImage" alt="Image">
+                </div>
+                <div class="description">
+                    <div class="container p-0">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link" id="nav-overview-tab" data-bs-toggle="tab" data-bs-target="#nav-overview" type="button" role="tab" aria-controls="nav-overview" aria-selected="false">درباره دوره</button>
+
+                                <button class="nav-link active" id="nav-curriculum-tab" data-bs-toggle="tab" data-bs-target="#nav-curriculum" type="button" role="tab" aria-controls="nav-curriculum" aria-selected="true">جلسات دوره</button>
+
+                                <button class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews" aria-selected="false"> نظرات</button>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
+                                <div class="overview">
+                                    <h3>شرح دوره</h3>
+                                   <p>
+                                        @Html.Raw(@Model.Description)
+                                   </p>
+                                   </div>
+                            </div>
+                            <div class="tab-pane fade active show" id="nav-curriculum" role="tabpanel" aria-labelledby="nav-curriculum-tab">
+                                <div class="curriculum">
+                                    <ul style="list-style:ethiopic-numeric;">
+                                        <li>@Model.Demofile</li>
+                                       @foreach (var item in Model.Episodes)
+                                        {
+                                            <li>
+                                               @item.EpisodeTitle : 
+                                                
+                                                @if (item.IsFree)
+                                                {
+                                                    <i class="text text-success">رایگان</i>
+                                                }
+                                                else
+                                                {
+                                                    <i class=" text text-danger">نقدی</i>
+                                                }
+                                                <span>@item.EpisodeTime</span></li>
+                                        }
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                           
+                            <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
+                                <div class="reviews">
+                                    <div class="reviews-single-card">
+                                        <div class="img-area">
+                                            <img src="assets/images/testimonial/testimonial-1.png" alt="Images">
+                                        </div>
+                                        <h2>مریم سعادت</h2>
+                                        <div class="icon">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                                    </div>
+                                    <div class="reviews-single-card">
+                                        <div class="img-area">
+                                            <img src="assets/images/testimonial/testimonial-2.png" alt="Images">
+                                        </div>
+                                        <h2>احمد محمدی</h2>
+                                        <div class="icon">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+
+                                    </div>
+
+                                    <div class="reviews-single-card">
+                                        <div class="img-area">
+                                            <img src="assets/images/testimonial/testimonial-3.png" alt="Images">
+                                        </div>
+                                        <h2>سارا افشار</h2>
+                                        <div class="icon">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+
+                                    </div>
+                                    <div class="reviews-single-card">
+                                        <div class="img-area">
+                                            <img src="assets/images/testimonial/testimonial-4.png" alt="Images">
+                                        </div>
+                                        <h2>رضا ویسی</h2>
+                                        <div class="icon">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+
+                                    </div>
+
+                                    <div class="review-form">
+                                        <h3>یک نظر بنویسید</h3>
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>نام</label>
+                                                        <input type="text" class="form-control" id="name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>ایمیل</label>
+                                                        <input type="email" class="form-control" id="email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>متن نظر</label>
+                                                        <textarea class="form-control" id="review" rows="4"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="default-btn btn">ارسال </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

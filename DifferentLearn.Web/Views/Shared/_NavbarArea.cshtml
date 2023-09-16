@@ -6,8 +6,8 @@
                 <div class="logo">
                     <a href="/">
                         <img src="/assets/images/logo.png" class="main-logo" alt="logo">
-                         <img src="/assets/images/1.png" class="main-logo" alt="logo">
-                        <img src="/assets/images/logo-2.png" class="white-logo" alt="logo"> 
+                        <img src="/assets/images/1.png" class="main-logo" alt="logo">
+                        <img src="/assets/images/logo-2.png" class="white-logo" alt="logo">
                     </a>
                 </div>
 
@@ -19,7 +19,7 @@
         <div class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" " href="/">
-                    
+
                     <img src="/assets/images/logo.png" class="main-logo" alt="logo">
                     <img src="/assets/images/1.png" class="main-logo" alt="logo">
                     <img src="/assets/images/logo-2.png" class="white-logo" alt="logo">
@@ -27,7 +27,7 @@
                 <div class="others-options">
                     <ul>
                         <li>
-                            <form action="/Course" method="get"  class="search-form">
+                            <form action="/Course" method="get" class="search-form">
                                 <input type="text" class="form-control" name="filter" placeholder="جستجو...">
                                 <button type="submit" class="src-btn">
                                     <i class="ri-search-line"></i>
@@ -37,38 +37,38 @@
                     </ul>
                 </div>
 
-               
+
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a href="/" class="nav-link active">خانه</a>
                         </li>
-                      
+
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link dropdown-toggle">
+                            <a href="/course" class="nav-link">
                                 دوره های آموزشی
                             </a>
-
+                            @*
                             <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="courses.html" class="nav-link">دوره های آموزشی</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="courses-details.html" class="nav-link">جزئیات دوره ها</a>
-                                </li>
-                            </ul>
+                            <li class="nav-item">
+                            <a href="courses.html" class="nav-link">دوره های آموزشی</a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="courses-details.html" class="nav-link">جزئیات دوره ها</a>
+                            </li>
+                            </ul> *@
                         </li>
-                       
 
-                            @await Component.InvokeAsync("CourseGroupForNavComponent")
-                          
-                        
+
+                        @await Component.InvokeAsync("CourseGroupForNavComponent")
+
+
 
                         <li class="nav-item">
                             <a href="about.html" class="nav-link">درباره ما</a>
                         </li>
-                
+
 
                         <li class="nav-item">
                             <a href="contact-us.html" class="nav-link">تماس با ما</a>
@@ -77,13 +77,13 @@
 
                     <div class="others-options">
                         <ul>
-                           @*  <li>
-                                <div class="cart">
-                                    <a href="cart.html"><i class="ri-shopping-bag-line"></i></a>
-                                    <span>0</span>
-                                </div>
+                            @*  <li>
+                            <div class="cart">
+                            <a href="cart.html"><i class="ri-shopping-bag-line"></i></a>
+                            <span>0</span>
+                            </div>
                             </li> *@
-                          @if (User.Identity.IsAuthenticated)
+                            @if (User.Identity.IsAuthenticated)
                             {
                                 <a href="/Userpanel" class="default-btn">داشبورد</a>
                                 <a href="/Logout" class="default-btn">خروج</a>
@@ -124,11 +124,11 @@
                                     </button>
                                 </form>
                             </li>
-                           @*  <li>
-                                <div class="cart">
-                                    <a href="cart.html"><i class="ri-shopping-bag-line"></i></a>
-                                    <span>0</span>
-                                </div>
+                            @*  <li>
+                            <div class="cart">
+                            <a href="cart.html"><i class="ri-shopping-bag-line"></i></a>
+                            <span>0</span>
+                            </div>
                             </li> *@
                             @if (User.Identity.IsAuthenticated)
                             {

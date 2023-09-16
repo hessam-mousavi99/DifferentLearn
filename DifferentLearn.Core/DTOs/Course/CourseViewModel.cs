@@ -32,4 +32,26 @@ namespace DifferentLearn.Core.DTOs.Course
         public int Price { get; set; }
         public DateTime StartDate { get; set; }
     }
+
+    public class CourseInfoViewModel
+    {
+        public int CourseId { get; set; }
+        public string CourseTitle { get; set; }
+        public string Description { get; set; }
+        public string CourseImage { get; set; }
+        public int Price { get; set; }
+        public int EpisodeCount { get; set; }
+        public List<CourseEpisode> Episodes { get; set; }
+       // public int Userscount { get; set; }
+        public TimeSpan? AllEpisodeTime { get; set; }
+        public string? Demofile { get; set; }
+        public string Teacher { get; set; }
+        public string TeacherImage { get; set; }
+        public string Level { get; set; }
+        public string Status { get; set; }
+        public DateTime CreateD { get; set; }
+        public DateTime? UpdateD { get; set; }
+        public string? Tags { get; set; }
+
+    }
 }

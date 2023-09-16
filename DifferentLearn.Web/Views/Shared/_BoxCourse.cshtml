@@ -3,7 +3,7 @@
 <div class="courses-single-card mlr-5" data-aos="fade-up"
      data-aos-duration="1000">
     <div class="course-img">
-        <a href="courses-details.html"><img src="/assets/images/courseavatar/image/@Model.ImageName"></a>
+        <a href="/ShowCourse/@Model.CourseId"><img src="/assets/images/courseavatar/image/@Model.ImageName"></a>
         <div class="courses-prices">
           @if (Model.Price==0)
             {
@@ -19,7 +19,7 @@
     </div>
     <div class="courses-content">
        
-        <a href="courses-details.html"><h3> @Model.Title </h3></a>
+        <a href="/ShowCourse/@Model.CourseId"><h3> @Model.Title </h3></a>
         <div class="time">
             <ul class="d-flex justify-content">
                 <i class="flaticon-calendar"></i>
