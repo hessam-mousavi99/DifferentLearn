@@ -73,7 +73,7 @@ namespace DifferentLearn.Web.Controllers
         }
         [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel login)
+        public async Task<IActionResult> Login(LoginViewModel login,string returnUrl="/")
         {
             if (!ModelState.IsValid)
             {
@@ -98,6 +98,10 @@ namespace DifferentLearn.Web.Controllers
                     };
                     HttpContext.SignInAsync(principal, properties);
                     ViewBag.IsSuccess = true;
+                    if (returnUrl!="/")
+                    {
+                        return Redirect(returnUrl);
+                    }
                     return View();
                 }
                 else

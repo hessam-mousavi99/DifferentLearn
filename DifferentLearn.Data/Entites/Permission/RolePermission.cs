@@ -24,10 +24,10 @@ namespace DifferentLearn.Data.Entites.Permission
         #region Relations
 
         [ForeignKey("RoleId")]
-        public virtual Role? Role { get; set; }
+        public  Role? Role { get; set; }
 
         [ForeignKey("PermissionId")]
-        public virtual Permission? Permission { get; set; }
+        public  Permission? Permission { get; set; }
         #endregion
     }
 }

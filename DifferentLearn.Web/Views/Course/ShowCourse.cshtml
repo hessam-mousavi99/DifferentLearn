@@ -33,11 +33,11 @@
                             }
                             <li>تعداد جلسات<span>@Model.EpisodeCount</span></li>
                             <li>مدت زمان جلسات<span>@Model.AllEpisodeTime</span></li>
-                            <li>ثبت نام<span>0 دانش آموز</span></li>
+                            <li>ثبت نام<span>@Model.Userscount</span></li>
                             <li>تاریخ شروع دوره<span>@Model.CreateD.ToShamsi()</span></li>
                             <li>تاریخ آخرین بروزرسانی<span>@Model.UpdateD?.ToShamsi()</span></li>
                         </ul>
-                        <a class="default-btn btn" href="#">هم اکنون خریداری کنید</a>
+                        <a class="default-btn btn" href="/course/BuyCourse/@Model.CourseId">هم اکنون خریداری کنید</a>
                     </div>
                     <div class="buy-content">
                         <ul style="list-style:none;">

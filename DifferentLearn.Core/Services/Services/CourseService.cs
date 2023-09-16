@@ -351,6 +351,7 @@ namespace DifferentLearn.Core.Services.Services
             CourseStatus status = await _context.CourseStatuses.SingleAsync(s => s.StatusId == course.StatusId);
             CourseLevel level = await _context.CourseLevels.SingleAsync(l => l.LevelId == course.LevelId);
             User teacher = await _context.Users.SingleAsync(u => u.UserId == course.TeacherId);
+            List<UserCourse> userCourse = _context.UserCourses.Where(c => c.CourseId == course.CourseId).ToList();
             CourseInfoViewModel info = new CourseInfoViewModel()
             {
                 CourseId=course.CourseId,
@@ -369,6 +370,7 @@ namespace DifferentLearn.Core.Services.Services
                 Tags=course.Tags,
                 Teacher=teacher.UserName,
                 TeacherImage=teacher.UserAvatar,
+                Userscount= userCourse.Count,
             };
             return info;
         }

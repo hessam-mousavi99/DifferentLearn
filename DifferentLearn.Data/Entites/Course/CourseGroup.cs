@@ -28,12 +28,12 @@ namespace DifferentLearn.Data.Entites.Course
 
         #region Relations
         [ForeignKey("ParentId")]
-        public List<CourseGroup>? CourseGroups { get; set; }
+        public ICollection<CourseGroup>? CourseGroups { get; set; }
 
         [InverseProperty("CourseGroup")]
-        public List<Course>? Courses { get; set; }
+        public ICollection<Course>? Courses { get; set; }
         [InverseProperty("SubCourseGroup")]
-        public List<Course>? SubGroups { get; set; }
+        public ICollection<Course>? SubGroups { get; set; }
         #endregion
     }
 }

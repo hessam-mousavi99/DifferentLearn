@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DifferentLearn.Data.Entites.Order;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -76,7 +77,9 @@ namespace DifferentLearn.Data.Entites.Course
 
         [ForeignKey("LevelId")]
         public CourseLevel? CourseLevel { get; set; }
-        public List<CourseEpisode>? CourseEpisodes { get; set; }
+        public ICollection<CourseEpisode>? CourseEpisodes { get; set; }
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
+        public ICollection<UserCourse>? UserCourses { get; set; }
         #endregion
 
     }

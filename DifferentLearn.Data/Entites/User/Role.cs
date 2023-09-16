@@ -24,8 +24,8 @@ namespace DifferentLearn.Data.Entites.User
         public bool IsDelete { get; set; }
 
         #region Relations
-        public  List<UserRole>? UserRoles { get; set; }
-        public  List<RolePermission>? RolePermissions { get; set; }
+        public  ICollection<UserRole>? UserRoles { get; set; }
+        public  ICollection<RolePermission>? RolePermissions { get; set; }
         #endregion
 
     }

@@ -27,9 +27,9 @@ namespace DifferentLearn.Data.Entites.Permission
 
         #region Relations
         [ForeignKey("ParentId")]
-        public  List<Permission>? Permissions { get; set; }
+        public  ICollection<Permission>? Permissions { get; set; }
 
-        public  List<RolePermission>? RolePermissions { get; set; }
+        public  ICollection<RolePermission>? RolePermissions { get; set; }
         #endregion
 
 

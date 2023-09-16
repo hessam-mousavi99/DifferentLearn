@@ -42,7 +42,7 @@ namespace DifferentLearn.Core.DTOs.Course
         public int Price { get; set; }
         public int EpisodeCount { get; set; }
         public List<CourseEpisode> Episodes { get; set; }
-       // public int Userscount { get; set; }
+        public int Userscount { get; set; }
         public TimeSpan? AllEpisodeTime { get; set; }
         public string? Demofile { get; set; }
         public string Teacher { get; set; }

@@ -1,4 +1,4 @@
-﻿ <!-- Start Navbar Area -->
+﻿<!-- Start Navbar Area -->
 <div class="navbar-area nav-bg-1">
     <div class="mobile-responsive-nav">
         <div class="container">
@@ -49,15 +49,6 @@
                             <a href="/course" class="nav-link">
                                 دوره های آموزشی
                             </a>
-                            @*
-                            <ul class="dropdown-menu">
-                            <li class="nav-item">
-                            <a href="courses.html" class="nav-link">دوره های آموزشی</a>
-                            </li>
-                            <li class="nav-item">
-                            <a href="courses-details.html" class="nav-link">جزئیات دوره ها</a>
-                            </li>
-                            </ul> *@
                         </li>
 
 
@@ -77,12 +68,11 @@
 
                     <div class="others-options">
                         <ul>
-                            @*  <li>
+                             <li>
                             <div class="cart">
-                            <a href="cart.html"><i class="ri-shopping-bag-line"></i></a>
-                            <span>0</span>
+                                    <a href="/userpanel/order"><i class="ri-shopping-bag-line"></i></a>
                             </div>
-                            </li> *@
+                            </li>
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <a href="/Userpanel" class="default-btn">داشبورد</a>
@@ -124,12 +114,12 @@
                                     </button>
                                 </form>
                             </li>
-                            @*  <li>
-                            <div class="cart">
-                            <a href="cart.html"><i class="ri-shopping-bag-line"></i></a>
-                            <span>0</span>
-                            </div>
-                            </li> *@
+                             <li>
+
+                                <a href="/userpanel/order"><i class="ri-shopping-bag-line"></i></a>
+                           
+                            
+                            </li>
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <a href="/userpanel" class="default-btn">داشبورد</a>

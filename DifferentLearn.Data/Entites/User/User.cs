@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DifferentLearn.Data.Entites.Course;
+using DifferentLearn.Data.Entites.Order;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -50,10 +52,13 @@ namespace DifferentLearn.Data.Entites.User
         public bool IsDelete { get; set; }
 
         #region Relations
-        public  List<UserRole>? UserRoles { get; set; }
+        public  ICollection<UserRole>? UserRoles { get; set; }
 
-        public  List<Wallet.Wallet>? Wallets { get; set; }
-        public  List<Course.Course>? Courses { get; set; }
+        public  ICollection<Wallet.Wallet>? Wallets { get; set; }
+        public  ICollection<Course.Course>? Courses { get; set; }
+
+        public ICollection<Order.Order>? Orders { get; set; }
+        public ICollection<UserCourse>? UserCourses { get; set; }
         #endregion
 
     }

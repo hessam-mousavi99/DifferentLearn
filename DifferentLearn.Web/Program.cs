@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddDbContext<DiffLearnContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DiffLearnConn"));
-});
+}, ServiceLifetime.Transient);
 
 #endregion
 
@@ -46,6 +46,7 @@ builder.Services.AddTransient<IAdminService,AdminService>();
 builder.Services.AddTransient<IPermissionService, Permissionservice>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 builder.Services.AddTransient<ICourseService, CourseService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 #endregion
 
 #endregion
