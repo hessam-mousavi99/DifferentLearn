@@ -37,7 +37,9 @@
     <link rel="stylesheet" href="/assets/AdminContent/css/bootstrap-rtl.min.css">
     <!-- template rtl version -->
     <link rel="stylesheet" href="/assets/AdminContent/css/custom-style.css">
+    <link rel="stylesheet" href="/assets/AdminContent/css/persian-datepicker.min.css">
 
+    <link rel="stylesheet" href="/assets/AdminContent/plugins/datepicker/datepicker3.css">
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -82,7 +84,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="/admin" class="brand-link">
                 <img src="/assets/AdminContent/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
                 <span class="brand-text font-weight-light">پنل مدیریت</span>
@@ -93,11 +95,8 @@
                 <div style="direction: rtl">
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                      @*   <div class="image">
-                            <img src="/assets/images/UserAvatar/@Model.ImageName" class="img-circle elevation-2" alt="User Image">
-                        </div> *@
                         <div class="info">
-                            <a href="#" class="d-block">@User.Identity.Name</a>
+                            <a href="" class="d-block">@User.Identity.Name</a>
                         </div>
                     </div>
 
@@ -107,7 +106,7 @@
                             <!-- Add icons to the links using the .nav-icon class
                                  with font-awesome or any other icon font library -->
                             <li class="nav-item has-treeview menu-open">
-                                <a href="#" class="nav-link active">
+                                <a href="/admin" class="nav-link active">
                                     <i class="nav-icon fa fa-dashboard"></i>
                                     <p>
                                         داشبوردها
@@ -125,7 +124,7 @@
                             </li>
 
                             <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
+                                <a href="" class="nav-link">
                                     <i class="nav-icon fa fa-table"></i>
                                     <p>
                                         مدیریت کاربران
@@ -140,7 +139,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link">
+                                        <a href="/admin/users" class="nav-link">
                                             <i class="nav-icon fa fa-user-circle-o"></i>
                                             <p>
                                                 کاربران
@@ -166,7 +165,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
+                                <a href="" class="nav-link">
                                     <i class="nav-icon fa fa-table"></i>
                                     <p>
                                         مدیریت دوره ها
@@ -175,7 +174,7 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link">
+                                        <a href="" class="nav-link">
                                             <i class="nav-icon fa fa-eye"></i>
                                             <p>
                                                 دوره ها
@@ -198,6 +197,26 @@
                                             </li>
                                         </ul>
                                     </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fa fa-table"></i>
+                                    <p>
+                                       تخفیف ها
+                                        <i class="fa fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/admin/discounts" class="nav-link">
+                                            <i class="nav-icon fa fa-percent"></i>
+                                            <p>
+                                                لیست تخفیف ها
+                                            </p>
+                                        </a>
+                                        </li>
+                                   
                                 </ul>
                             </li>
                         </ul>
@@ -254,6 +273,7 @@
     <script src="/assets/AdminContent/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- datepicker -->
     <script src="/assets/AdminContent/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/assets/AdminContent/plugins/datepicker/locales/bootstrap-datepicker.fa.js"></script>
     <!-- Bootstrap WYSIHTML5 -->
     <script src="/assets/AdminContent/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <!-- Slimscroll -->

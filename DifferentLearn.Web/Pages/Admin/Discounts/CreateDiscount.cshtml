@@ -1,0 +1,108 @@
+﻿@page "{handler?}"
+@model DifferentLearn.Web.Pages.Admin.Discounts.CreateDiscountModel
+@{
+    ViewData["Title"] = "ایجاد تخفیف";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">افزودن کد تخفیف </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
+                    <li class="breadcrumb-item active">ایجاد کد تخفیف </li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<form role="form" method="post">
+    <div class="row">
+
+        <div style="margin:0 10px 0 0;" class="col-md-8">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">اطلاعات کد تخفیف</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">کد تخفیف</label>
+                        <input asp-for="DisCount.DiscountCode" type="text" class="form-control" placeholder="کد تخفیف را وارد کنید">
+                        <div id="alertCode" class="alert alert-danger" style="display:none;">
+                            <p>کد وارد شده معتبر نمیباشد!!!</p>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">درصد کد</label>
+                        <input asp-for="DisCount.DisCountPercent" type="number" class="form-control" id="exampleInputEmail1" placeholder="درصد کد را وارد کنید">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">تعداد کد</label>
+                        <input asp-for="DisCount.UsableCount" type="number" class="form-control" id="exampleInputEmail1" placeholder="تعداد کد را وارد کنید">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">تاریخ شروع</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                            <input asp-for="DisCount.StartDate" class="normal-example form-control pwt-datepicker-input-element">
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">تاریخ پایان</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                            <input asp-for="DisCount.EndDate" class="normal-example form-control pwt-datepicker-input-element">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">افزودن کد تخفیف</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        $("#DisCount_DiscountCode").blur(function () {
+            $.ajax({
+                type: "get",
+                url: "/Admin/discounts/CreateDiscount/CheckCode?code=" + $("#DisCount_DiscountCode").val()
+            }).done(function (res) {
+                if (res === 'True') {
+                    $("#alertCode").show();
+                } else {
+                    $("#alertCode").hide();
+                }
+            });
+        });
+    </script>
+}

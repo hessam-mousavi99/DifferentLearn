@@ -23,7 +23,7 @@ namespace DifferentLearn.Web.Areas.UserPanel.Controllers
             
             return View(await _orderService.GetUserOrdersAsync(User.Identity.Name));
         }
-        public async Task<IActionResult> ShowOrder(int id,bool finaly=false)
+        public async Task<IActionResult> ShowOrder(int id,bool finaly=false,string type="")
         {
             Order order = await _orderService.GetOrderForUserPanelAsync(User.Identity.Name, id);
             
@@ -31,6 +31,7 @@ namespace DifferentLearn.Web.Areas.UserPanel.Controllers
             {
                 return NotFound();
             }
+            ViewBag.TypeDisCount = type;
             ViewBag.finaly=finaly;
             return View(order);
         }

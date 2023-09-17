@@ -1,0 +1,88 @@
+﻿@page "{id}"
+@model DifferentLearn.Web.Pages.Admin.Discounts.EditDiscountModel
+@{
+    ViewData["Title"] = "ویرایش کد تخفیف";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">ویرایش کد تخفیف </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
+                    <li class="breadcrumb-item active">ویرایش کد تخفیف </li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<form role="form" method="post">
+    <div class="row">
+        <input type="hidden" asp-for="DisCount.DiscountId" />
+        <div style="margin:0 10px 0 0;" class="col-md-8">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">اطلاعات کد تخفیف</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">کد تخفیف</label>
+                        <input asp-for="DisCount.DiscountCode" type="text" class="form-control" id="exampleInputEmail1" placeholder="کد تخفیف را وارد کنید">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">درصد کد</label>
+                        <input asp-for="DisCount.DisCountPercent" type="number" class="form-control" id="exampleInputEmail1" placeholder="درصد کد را وارد کنید">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">تعداد کد</label>
+                        <input asp-for="DisCount.UsableCount" type="number" class="form-control" id="exampleInputEmail1" placeholder="تعداد کد را وارد کنید">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">تاریخ شروع</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                            <input asp-for="DisCount.StartDate" class="normal-example form-control pwt-datepicker-input-element">
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">تاریخ پایان</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                            <input asp-for="DisCount.EndDate" class="normal-example form-control pwt-datepicker-input-element">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-warning">ویرایش کد تخفیف</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

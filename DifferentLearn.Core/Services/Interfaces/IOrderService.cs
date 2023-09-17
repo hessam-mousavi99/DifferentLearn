@@ -19,6 +19,12 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<List<Order>> GetUserOrdersAsync(string username);
         Task UpdateOrderAsync(Order order);
         Task<DisCountUseType> UseDisCountAsync(int orderid, string code);
+        Task AddDiscountAsync(DisCount disCount);
+        Task<List<DisCount>> GetAllDiscountsAsync();
+        Task<DisCount> GetDiscountForEditAsync(int discountid);
+        Task UpdateDiscountAsync(DisCount disCount);
+        Task<bool> IsExistCodeAsync(string code);
+        Task<bool> IsUserInCourseAsync(string username, int courseid);
 
     }
 }

@@ -29,6 +29,12 @@ namespace DifferentLearn.Core.Services.Services
 
         }
 
+        public async Task AddDiscountAsync(DisCount disCount)
+        {
+            await _context.DisCounts.AddAsync(disCount);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<int> AddOrderAsync(string username, int courseid)
         {
             User user = await _userService.GetUserByUserNameAsync(username);
@@ -130,6 +136,17 @@ namespace DifferentLearn.Core.Services.Services
             return false;
         }
 
+        public async Task<List<DisCount>> GetAllDiscountsAsync()
+        {
+            return await _context.DisCounts.ToListAsync();
+        }
+
+        public async Task<DisCount> GetDiscountForEditAsync(int discountid)
+        {
+           DisCount dis= await _context.DisCounts.FindAsync(discountid);
+            return dis;
+        }
+
         public async Task<Order> GetOrderByIdAsync(int orderid)
         {
             return await _context.Orders.FindAsync(orderid);
@@ -157,6 +174,24 @@ namespace DifferentLearn.Core.Services.Services
             User user = await _userService.GetUserByUserNameAsync(username);
             int userid = user.UserId;
             return await _context.Orders.Where(o => o.UserId == userid).ToListAsync();
+        }
+
+        public async Task<bool> IsExistCodeAsync(string code)
+        {
+            return await _context.DisCounts.AnyAsync(d=>d.DiscountCode==code);
+        }
+
+        public async Task<bool> IsUserInCourseAsync(string username, int courseid)
+        {
+            User user = await _userService.GetUserByUserNameAsync(username);
+            int userid=user.UserId;
+            return await _context.UserCourses.AnyAsync(c => c.UserId == userid && c.CourseId == courseid);
+        }
+
+        public async Task UpdateDiscountAsync(DisCount disCount)
+        {
+            _context.DisCounts.Update(disCount);
+            await _context.SaveChangesAsync();  
         }
 
         public async Task UpdateOrderAsync(Order order)
@@ -196,7 +231,10 @@ namespace DifferentLearn.Core.Services.Services
             }
 
             var order = await GetOrderByIdAsync(orderid);
-
+            if (_context.UserDisCountCodes.Any(d=>d.UserId==order.UserId&&d.DiscountId==discount.DiscountId))
+            {
+                return DisCountUseType.UserUsed;
+            }
             int percent = (order.OrderSum * discount.DisCountPercent) / 100;
             order.OrderSum = order.OrderSum - percent;
             await UpdateOrderAsync(order);
@@ -205,6 +243,11 @@ namespace DifferentLearn.Core.Services.Services
                 discount.UsableCount -= 1;
             }
             _context.DisCounts.Update(discount);
+            _context.UserDisCountCodes.Add(new UserDisCountCode()
+            {
+                UserId=order.UserId,
+                DiscountId=discount.DiscountId
+            });
             await _context.SaveChangesAsync();
             return DisCountUseType.Success;
         }

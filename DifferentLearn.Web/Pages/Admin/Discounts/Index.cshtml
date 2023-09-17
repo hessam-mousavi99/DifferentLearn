@@ -1,0 +1,55 @@
+﻿@page
+@using DifferentLearn.Core.Convertors;
+@model DifferentLearn.Web.Pages.Admin.Discounts.IndexModel
+@{
+    ViewData["Title"] = "لیست کد های تخفیف";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header col-12">
+
+                <div class="col-4">
+                    <h3 class="card-title">لسیت کد های تخفیف</h3>
+                </div>
+            </div>
+            <div class="row " style="margin:5px;">
+                <a class=" btn btn-success btn-sm" href="/Admin/discounts/creatediscount">افزودن کد جدید</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>کد</th>
+                            <th>درصد تخفیف</th>
+                            <th>تعداد</th>
+                            <th>تاریخ شروع</th>
+                            <th>تاریخ پایان</th>
+                            <th>دستورات</th>
+                        </tr>
+                        @foreach (var code in Model.DisCounts)
+                        {
+                            <tr>
+                                <td>@code.DiscountCode</td>
+                                <td>@code.DisCountPercent</td>
+                                <td>@code.UsableCount</td>
+                                <td>@((code.StartDate!=null)?code.StartDate.Value.ToShamsi():"")</td>
+                                <td>@((code.EndDate != null) ? code.EndDate.Value.ToShamsi() : "")</td>
+                                <td>
+                                    <a href="/admin/discounts/editdiscount/@code.DiscountId" class="btn btn-warning btn-sm">ویرایش</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+    </div>
+
+
+</div>

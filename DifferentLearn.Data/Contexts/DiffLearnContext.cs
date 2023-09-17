@@ -52,6 +52,7 @@ namespace DifferentLearn.Data.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<DisCount> DisCounts { get; set; }
+        public DbSet<UserDisCountCode> UserDisCountCodes { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

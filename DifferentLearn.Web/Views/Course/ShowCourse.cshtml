@@ -1,8 +1,14 @@
 ﻿@using DifferentLearn.Core.Convertors;
+@using DifferentLearn.Core.Services.Interfaces;
 @model DifferentLearn.Core.DTOs.Course.CourseInfoViewModel
-
+@inject IOrderService _orderservice;
 @{
     ViewData["Title"] = "جزییات دوره: " + Model.CourseTitle;
+    bool IsUserIncourse = false;
+    if (User.Identity.IsAuthenticated)
+    {
+        IsUserIncourse = await _orderservice.IsUserInCourseAsync(User.Identity.Name, Model.CourseId);
+    }
 }
 
 <nav aria-label="breadcrumb">
@@ -19,11 +25,11 @@
             <div class="col-lg-4">
                 <div class="buy-now-area">
                     <div class="page-header-content bg-gray-light" style="margin:0 0 15px 0;">
-                       <h3>جزییات دوره</h3>
-                   </div>
+                        <h3>جزییات دوره</h3>
+                    </div>
                     <div class="buy-content " style="margin:0 0 50px 0;">
                         <ul>
-                          @if (Model.Price!=0)
+                            @if (Model.Price != 0)
                             {
                                 <li>قیمت<span>@Model.Price.ToString("#,0") تومان</span></li>
                             }
@@ -33,11 +39,14 @@
                             }
                             <li>تعداد جلسات<span>@Model.EpisodeCount</span></li>
                             <li>مدت زمان جلسات<span>@Model.AllEpisodeTime</span></li>
-                            <li>ثبت نام<span>@Model.Userscount</span></li>
+                            <li>ثبت نام<span>@Model.Userscount نفر</span></li>
                             <li>تاریخ شروع دوره<span>@Model.CreateD.ToShamsi()</span></li>
                             <li>تاریخ آخرین بروزرسانی<span>@Model.UpdateD?.ToShamsi()</span></li>
                         </ul>
-                        <a class="default-btn btn" href="/course/BuyCourse/@Model.CourseId">هم اکنون خریداری کنید</a>
+                        @if (!IsUserIncourse)
+                        {
+                            <a class="default-btn btn" href="/course/BuyCourse/@Model.CourseId">هم اکنون خریداری کنید</a>
+                        }
                     </div>
                     <div class="buy-content">
                         <ul style="list-style:none;">
@@ -67,7 +76,7 @@
                     </div>
                     <div class="share">
                         <h5>کلمات کلیدی دوره</h5>
-                      @foreach (var item in Model.Tags.Split('-',StringSplitOptions.RemoveEmptyEntries))
+                        @foreach (var item in Model.Tags.Split('-', StringSplitOptions.RemoveEmptyEntries))
                         {
                             <a href="/course?filter=@item">@item</a>
                         }
@@ -75,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-8" >
+            <div class="col-lg-8">
                 <div class="details">
                     <h3>@Model.CourseTitle</h3>
                     <div class="list2">
@@ -101,20 +110,35 @@
                             <div class="tab-pane fade" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
                                 <div class="overview">
                                     <h3>شرح دوره</h3>
-                                   <p>
+                                    <p>
                                         @Html.Raw(@Model.Description)
-                                   </p>
-                                   </div>
+                                    </p>
+                                </div>
                             </div>
                             <div class="tab-pane fade active show" id="nav-curriculum" role="tabpanel" aria-labelledby="nav-curriculum-tab">
                                 <div class="curriculum">
+                                    @if (!IsUserIncourse)
+                                    {
+                                        <div class="alert alert-info">
+                                            <p>بعد از ثبت نام در این دوره و تایید فاکتور لینک های دانلود برای شما فعال خواهد شد</p>
+                                        </div>
+                                    }
                                     <ul style="list-style:ethiopic-numeric;">
                                         <li>@Model.Demofile</li>
-                                       @foreach (var item in Model.Episodes)
+                                        @foreach (var item in Model.Episodes)
                                         {
                                             <li>
-                                               @item.EpisodeTitle : 
-                                                
+                                                @if (item.IsFree || IsUserIncourse)
+                                                {
+                                                    <a href="/downloadfile/@item.EpisodeId">
+                                                        @item.EpisodeTitle :
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <h6>@item.EpisodeTitle : </h6>
+                                                }
+
                                                 @if (item.IsFree)
                                                 {
                                                     <i class="text text-success">رایگان</i>
@@ -123,13 +147,14 @@
                                                 {
                                                     <i class=" text text-danger">نقدی</i>
                                                 }
-                                                <span>@item.EpisodeTime</span></li>
+                                                <span>@item.EpisodeTime</span>
+                                            </li>
                                         }
-                                       
+
                                     </ul>
                                 </div>
                             </div>
-                           
+
                             <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
                                 <div class="reviews">
                                     <div class="reviews-single-card">

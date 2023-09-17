@@ -59,6 +59,7 @@ namespace DifferentLearn.Data.Entites.User
 
         public ICollection<Order.Order>? Orders { get; set; }
         public ICollection<UserCourse>? UserCourses { get; set; }
+        public ICollection<Order.UserDisCountCode>? UserDisCountCodes { get; set; }
         #endregion
 
     }

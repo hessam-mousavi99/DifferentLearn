@@ -8,6 +8,6 @@ namespace DifferentLearn.Core.DTOs.Order
 {
     public enum DisCountUseType
     {
-        Success,ExpierDate,NotFound,Finished
+        Success,ExpierDate,NotFound,Finished,UserUsed
     }
 }
