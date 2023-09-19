@@ -19,6 +19,9 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<List<SelectListItem>> GetTeachersAsync();
         Task<List<SelectListItem>> GetCourseLevelAsync();
         Task<List<SelectListItem>> GetCourseStatusAsync();
+        Task AddGroupAsync(CourseGroup group);
+        Task UpdateGroupAsync(CourseGroup group);
+        Task<CourseGroup> GetGroupByIdAsync(int groupid);
         #endregion
 
         #region Course
@@ -40,5 +43,9 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<Tuple<List<ShowCourseListViewItem>,int>> GetShowCourseListViewItemAsync(int pageId=1,string filter="",string getType="all",string orderByType="date",int startPrice=0,int EndPrice=0,List<int> selectedGroups=null, int take = 0);
         Task<CourseInfoViewModel> GetCourseInfoForShowAsync(int courseid);
         #endregion
+
+        Task AddCommentAsync(CourseComment comment);
+        Task<Tuple<List<CourseComment>,int>> GetCourseCommentsAsync(int courseid ,int pageid=1);
+       
     }
 }

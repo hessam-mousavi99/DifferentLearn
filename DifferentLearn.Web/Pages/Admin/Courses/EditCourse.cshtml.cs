@@ -24,8 +24,18 @@ namespace DifferentLearn.Web.Pages.Admin.Courses
             var group = await _courseService.GetGroupFroManageCourseAsync();
             ViewData["Groups"] = new SelectList(group, "Value", "Text", Course.GroupId);
 
-            var subGroups = await _courseService.GetSubGroupFroManageCourseAsync(Convert.ToInt32(group.First().Value));
-            ViewData["SubGroups"] = new SelectList(subGroups, "Value", "Text", Course.SubGroupId ?? 0);
+            List<SelectListItem> SubG=new List<SelectListItem>()
+            {
+                new SelectListItem(){Text="«‰ Œ«» ò‰",Value=""}
+            };
+            SubG.AddRange(await _courseService.GetSubGroupFroManageCourseAsync(Course.GroupId));
+            string selectedsubgroup = null;
+            if (Course.SubCourseGroup != null)
+            {
+                selectedsubgroup = Course.SubCourseGroup.ToString();
+            }
+            
+            ViewData["SubGroups"] = new SelectList(SubG, "Value", "Text", selectedsubgroup);
 
             var teachers = await _courseService.GetTeachersAsync();
             ViewData["Teachers"] = new SelectList(teachers, "Value", "Text", Course.TeacherId);

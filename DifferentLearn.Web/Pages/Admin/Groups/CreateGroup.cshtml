@@ -1,0 +1,47 @@
+﻿@page "{id?}"
+@model DifferentLearn.Web.Pages.Admin.Groups.CreateGroupModel
+@{
+    ViewData["Title"] = "ایجاد گروه";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">افزودن گروه جدید</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
+                    <li class="breadcrumb-item active">ایجاد گروه جدید</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<form role="form" method="post">
+    <div class="row">
+        <input type="hidden" asp-for="CourseGroup.ParentId"/>
+        <div style="margin:0 10px 0 0;" class="col-md-8">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">اطلاعات گروه</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">عنوان گروه</label>
+                        <input asp-for="CourseGroup.GroupTitle" type="text" class="form-control" id="exampleInputEmail1" placeholder="عنوان گروه را وارد کنید">
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">افزودن گروه</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

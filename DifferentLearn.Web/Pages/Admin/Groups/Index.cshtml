@@ -1,0 +1,58 @@
+﻿@page
+@model DifferentLearn.Web.Pages.Admin.Groups.IndexModel
+@{
+    ViewData["Title"] = "نمایش گروه ها";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header col-12">
+
+                <div class="col-4">
+                    <h3 class="card-title">لسیت گروه ها</h3>
+                </div>
+            </div>
+            <div class="row " style="margin:5px;">
+                <a class=" btn btn-success btn-sm" href="/Admin/Groups/CreateGroup">افزودن گروه جدید</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>عنوان گروه</th>
+                            <th>زیر گروه ih</th>
+                       
+                            <th>دستورات</th>
+                        </tr>
+                        @foreach (var item in Model.CourseGroups.Where(g=>g.ParentId==null))
+                        {
+                            <tr>
+                                <td>@item.GroupTitle</td>
+                                <td>@if (item.CourseGroups.Any())
+                                    {
+                                        <ul>
+                                            @foreach (var sub in item.CourseGroups)
+                                            {
+                                                <li style="margin-bottom:2px;">@sub.GroupTitle -   <a href="/admin/groups/editGroup/@sub.GroupId" class="btn btn-outline-warning btn-sm">ویرایش</a></li>
+                                            }
+                                        </ul>
+                                    }</td>
+                                <td>
+                                    <a href="/admin/groups/CreateGroup/@item.GroupId" class="btn btn-info btn-sm">زیرگروه</a>
+                                    <a href="/admin/groups/editGroup/@item.GroupId" class="btn btn-warning btn-sm">ویرایش</a>
+                                  @*   <a href="/admin/groups/DeleteGroup/@item.GroupId" class="btn btn-danger btn-sm">حذف</a> *@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+    </div>
+
+
+</div>

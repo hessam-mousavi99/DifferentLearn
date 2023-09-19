@@ -1,0 +1,29 @@
+﻿@using DifferentLearn.Core.Convertors;
+@using DifferentLearn.Data.Entites.Course;
+@model Tuple<List<CourseComment>,int>
+
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.Item1)
+{
+    <div class="reviews-single-card">
+        <div class="img-area" style="max-width:100px;max-height:100px;">
+            <img src="/assets/images/useravatar/@item.User.UserAvatar" alt="Images">
+        </div>
+        <h3>@item.User.UserName</h3>
+        <span>@item.CreateDate.ToShamsi()</span>
+        <p>
+            @item.Comment
+        </p>
+    </div>
+}
+<div class="paginations mt-20">
+    <ul>
+ @for (int i = 1; i <= Model.Item2; i++)
+        {
+            <li><a onclick="pageComment(@i)">@i</a></li>
+        }
+    </ul>
+</div>

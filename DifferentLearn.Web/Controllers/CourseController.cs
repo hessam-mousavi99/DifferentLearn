@@ -1,5 +1,6 @@
 ﻿using DifferentLearn.Core.Services.Interfaces;
 using DifferentLearn.Data.Entites.Course;
+using DifferentLearn.Data.Entites.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace DifferentLearn.Web.Controllers
     {
         IOrderService _orderService;
         ICourseService _courseService;
-        public CourseController(ICourseService courseService, IOrderService orderService)
+        IUserService _userService;
+        public CourseController(ICourseService courseService, IOrderService orderService,IUserService userService)
         {
             _courseService = courseService;
             _orderService = orderService;
+            _userService = userService;
 
         }
         public async Task<IActionResult> Index(int pageId = 1, string filter = "", string getType = "all", string orderByType = "date",
@@ -64,6 +67,24 @@ namespace DifferentLearn.Web.Controllers
             }
 
             return Forbid();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(CourseComment comment) 
+        {
+            User user =await _userService.GetUserByUserNameAsync(User.Identity.Name);
+            
+            comment.CreateDate=DateTime.Now;
+            comment.UserId = user.UserId;
+            await _courseService.AddCommentAsync(comment);
+          
+            return View("ShowComment",await _courseService.GetCourseCommentsAsync(comment.CourseId));
+        }
+
+        public async Task<IActionResult> ShowComment(int id,int pageid=1)
+        {
+            return View(await _courseService.GetCourseCommentsAsync(id,pageid));
         }
     }
 }

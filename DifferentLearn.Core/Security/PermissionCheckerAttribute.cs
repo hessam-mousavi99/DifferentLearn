@@ -29,7 +29,7 @@ namespace DifferentLearn.Core.Security
                 string username = context.HttpContext.User.Identity.Name;
                 if (!await _permissionService.CheckPermissionAsync(_permissionId, username))
                 {
-                    context.Result = new RedirectResult("/login");
+                    context.Result = new RedirectResult("/login?"+context.HttpContext.Request.Path);
                 }
             }
             else

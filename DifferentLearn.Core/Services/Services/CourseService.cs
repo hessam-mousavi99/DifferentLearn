@@ -31,7 +31,7 @@ namespace DifferentLearn.Core.Services.Services
         }
         public async Task<List<CourseGroup>> GetAllGroupAsync()
         {
-            return await _context.CourseGroups.ToListAsync();
+            return await _context.CourseGroups.Include(c=>c.CourseGroups).ToListAsync();
         }
 
         public async Task<List<SelectListItem>> GetGroupFroManageCourseAsync()
@@ -264,9 +264,9 @@ namespace DifferentLearn.Core.Services.Services
         }
 
         public async Task<Tuple<List<ShowCourseListViewItem>, int>> GetShowCourseListViewItemAsync(int pageId = 1, string filter = "", string getType = "all",
-            string orderByType = "date", int startPrice = 0, int EndPrice = 0, List<int> selectedGroups = null,int take=0)
+            string orderByType = "date", int startPrice = 0, int EndPrice = 0, List<int> selectedGroups = null, int take = 0)
         {
-            if (take==0)
+            if (take == 0)
             {
                 take = 6;
             }
@@ -274,7 +274,7 @@ namespace DifferentLearn.Core.Services.Services
             IQueryable<Course> result = _context.Courses;
             if (!string.IsNullOrEmpty(filter))
             {
-                result = result.Where(c => c.CourseTitle.Contains(filter)||c.Tags.Contains(filter));
+                result = result.Where(c => c.CourseTitle.Contains(filter) || c.Tags.Contains(filter));
             }
             switch (getType)
             {
@@ -305,25 +305,25 @@ namespace DifferentLearn.Core.Services.Services
                         break;
                     }
             }
-            if (startPrice>0)
+            if (startPrice > 0)
             {
                 result = result.Where(c => c.CoursePrice > startPrice);
             }
-            if (EndPrice>0)
+            if (EndPrice > 0)
             {
                 result = result.Where(c => c.CoursePrice < EndPrice);
             }
-            if (selectedGroups!=null && selectedGroups.Any())
+            if (selectedGroups != null && selectedGroups.Any())
             {
                 //impelement
                 foreach (int GroupId in selectedGroups)
                 {
-                    result=result.Where(c => c.GroupId == GroupId||c.SubGroupId==GroupId);
+                    result = result.Where(c => c.GroupId == GroupId || c.SubGroupId == GroupId);
                 }
             }
             int skip = (pageId - 1) * take;
 
-            int pagecount =(int)Math.Ceiling( (decimal)(result.Select(c => new ShowCourseListViewItem()
+            int pagecount = (int)Math.Ceiling((decimal)(result.Select(c => new ShowCourseListViewItem()
             {
                 CourseId = c.CourseId,
                 ImageName = c.CourseImageName,
@@ -332,7 +332,7 @@ namespace DifferentLearn.Core.Services.Services
                 StartDate = c.CreateDate
             }).Count()) / (decimal)take);
 
-            var query =await result.Select(c => new ShowCourseListViewItem()
+            var query = await result.Select(c => new ShowCourseListViewItem()
             {
                 CourseId = c.CourseId,
                 ImageName = c.CourseImageName,
@@ -346,33 +346,65 @@ namespace DifferentLearn.Core.Services.Services
 
         public async Task<CourseInfoViewModel> GetCourseInfoForShowAsync(int courseid)
         {
-            Course course=await GetCourseByIdAsync(courseid);
-            List<CourseEpisode> episodes=await _context.CourseEpisodes.Where(e=>e.CourseId==course.CourseId).ToListAsync();
+            Course course = await GetCourseByIdAsync(courseid);
+            List<CourseEpisode> episodes = await _context.CourseEpisodes.Where(e => e.CourseId == course.CourseId).ToListAsync();
             CourseStatus status = await _context.CourseStatuses.SingleAsync(s => s.StatusId == course.StatusId);
             CourseLevel level = await _context.CourseLevels.SingleAsync(l => l.LevelId == course.LevelId);
             User teacher = await _context.Users.SingleAsync(u => u.UserId == course.TeacherId);
             List<UserCourse> userCourse = _context.UserCourses.Where(c => c.CourseId == course.CourseId).ToList();
             CourseInfoViewModel info = new CourseInfoViewModel()
             {
-                CourseId=course.CourseId,
-                CourseTitle=course.CourseTitle,
-                CourseImage=course.CourseImageName,
-                AllEpisodeTime=new TimeSpan(episodes.Sum(e=>e.EpisodeTime.Ticks)),
-                CreateD=course.CreateDate,
-                UpdateD=course.UpdateDate,
-                Demofile=course.DemoFileName,
-                EpisodeCount=episodes.Count(),
-                Description=course.CourseDescription,
-                Episodes=episodes.ToList(),
-                Level=level.LevelTitle,
-                Price=course.CoursePrice,
-                Status=status.StatusTitle,
-                Tags=course.Tags,
-                Teacher=teacher.UserName,
-                TeacherImage=teacher.UserAvatar,
-                Userscount= userCourse.Count,
+                CourseId = course.CourseId,
+                CourseTitle = course.CourseTitle,
+                CourseImage = course.CourseImageName,
+                AllEpisodeTime = new TimeSpan(episodes.Sum(e => e.EpisodeTime.Ticks)),
+                CreateD = course.CreateDate,
+                UpdateD = course.UpdateDate,
+                Demofile = course.DemoFileName,
+                EpisodeCount = episodes.Count(),
+                Description = course.CourseDescription,
+                Episodes = episodes.ToList(),
+                Level = level.LevelTitle,
+                Price = course.CoursePrice,
+                Status = status.StatusTitle,
+                Tags = course.Tags,
+                Teacher = teacher.UserName,
+                TeacherImage = teacher.UserAvatar,
+                Userscount = userCourse.Count,
             };
             return info;
+        }
+
+        public async Task AddCommentAsync(CourseComment comment)
+        {
+            _context.CourseComments.Add(comment);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Tuple<List<CourseComment>, int>> GetCourseCommentsAsync(int courseid, int pageid = 1)
+        {
+            int take = 5;
+            int skip = (pageid - 1) * take;
+            int pageCount= (int)Math.Ceiling((decimal)_context.CourseComments.Where(c=>!c.IsDelete&&c.CourseId==courseid).Count() / (decimal)take);
+            return Tuple.Create(await _context.CourseComments.Include(c=>c.User).Where(c => !c.IsDelete 
+            && c.CourseId == courseid).Skip(skip).Take(take).OrderByDescending(c=>c.CreateDate).ToListAsync(), pageCount);
+        }
+
+        public async Task AddGroupAsync(CourseGroup group)
+        {
+            _context.CourseGroups.Add(group);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateGroupAsync(CourseGroup group)
+        {
+            _context.CourseGroups.Update(group);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<CourseGroup> GetGroupByIdAsync(int groupid)
+        {
+            return await _context.CourseGroups.FindAsync(groupid);
         }
     }
 }

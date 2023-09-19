@@ -77,9 +77,11 @@ namespace DifferentLearn.Data.Entites.Course
 
         [ForeignKey("LevelId")]
         public CourseLevel? CourseLevel { get; set; }
+
         public ICollection<CourseEpisode>? CourseEpisodes { get; set; }
         public ICollection<OrderDetail>? OrderDetails { get; set; }
         public ICollection<UserCourse>? UserCourses { get; set; }
+        public ICollection<CourseComment>? CourseComments { get; set; }
         #endregion
 
     }

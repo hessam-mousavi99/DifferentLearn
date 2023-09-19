@@ -46,6 +46,7 @@ namespace DifferentLearn.Data.Contexts
         public DbSet<CourseLevel> CourseLevels { get; set; }
         public DbSet<CourseStatus> CourseStatuses { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }
+        public DbSet<CourseComment> CourseComments { get; set; }
         #endregion
 
         #region Order
@@ -65,6 +66,7 @@ namespace DifferentLearn.Data.Contexts
             modelBuilder.Entity<Order>().HasQueryFilter(o => !o.IsDelete);
             modelBuilder.Entity<OrderDetail>().HasQueryFilter(od => !od.IsDelete);
             modelBuilder.Entity<DisCount>().HasQueryFilter(d => !d.IsDelete);
+            modelBuilder.Entity<CourseComment>().HasQueryFilter(d => !d.IsDelete);
 
 
             var Cascadefks = modelBuilder.Model.GetEntityTypes().SelectMany(t => t.GetForeignKeys())

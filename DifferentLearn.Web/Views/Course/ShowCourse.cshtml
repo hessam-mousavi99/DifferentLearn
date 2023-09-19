@@ -10,7 +10,21 @@
         IsUserIncourse = await _orderservice.IsUserInCourseAsync(User.Identity.Name, Model.CourseId);
     }
 }
-
+@section MetaTag{
+    <meta name="googlebot" content="index,follow" >
+    <meta name="robots" content="noodp,noydir">
+    <meta name="description" content="شرح صفحه">
+    <meta property="og:site_name" value="عنوان مثل خودآموز دیف لرن">
+    <meta property="og:title" content="@Model.CourseTitle">
+    <meta property="og:url" content="url safheye course">
+    <meta property="og:image" content="address ax safhe">
+    <meta property="og:image:height" content="500">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:price:currency" content="irr">
+    <meta property="og:locale" content="ir_fa">
+    <meta property="og:description" content="">
+    <meta property="og:image:url" content="">
+}
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li style="margin:5px;"><a href="/">خانه</a></li>
@@ -99,11 +113,11 @@
                     <div class="container p-0">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link" id="nav-overview-tab" data-bs-toggle="tab" data-bs-target="#nav-overview" type="button" role="tab" aria-controls="nav-overview" aria-selected="false">درباره دوره</button>
+                                <button class="nav-link " id="nav-overview-tab" data-bs-toggle="tab" data-bs-target="#nav-overview" type="button" role="tab" aria-controls="nav-overview" aria-selected="false">درباره دوره</button>
 
-                                <button class="nav-link active" id="nav-curriculum-tab" data-bs-toggle="tab" data-bs-target="#nav-curriculum" type="button" role="tab" aria-controls="nav-curriculum" aria-selected="true">جلسات دوره</button>
+                                <button class="nav-link" id="nav-curriculum-tab" data-bs-toggle="tab" data-bs-target="#nav-curriculum" type="button" role="tab" aria-controls="nav-curriculum" aria-selected="true">جلسات دوره</button>
 
-                                <button class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews" aria-selected="false"> نظرات</button>
+                                <button class="nav-link active" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews" aria-selected="false"> نظرات</button>
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
@@ -115,7 +129,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="tab-pane fade active show" id="nav-curriculum" role="tabpanel" aria-labelledby="nav-curriculum-tab">
+                            <div class="tab-pane fade " id="nav-curriculum" role="tabpanel" aria-labelledby="nav-curriculum-tab">
                                 <div class="curriculum">
                                     @if (!IsUserIncourse)
                                     {
@@ -155,104 +169,65 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
+                            <div class="tab-pane fade active show" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
                                 <div class="reviews">
-                                    <div class="reviews-single-card">
-                                        <div class="img-area">
-                                            <img src="assets/images/testimonial/testimonial-1.png" alt="Images">
-                                        </div>
-                                        <h2>مریم سعادت</h2>
-                                        <div class="icon">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                        </div>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-                                    </div>
-                                    <div class="reviews-single-card">
-                                        <div class="img-area">
-                                            <img src="assets/images/testimonial/testimonial-2.png" alt="Images">
-                                        </div>
-                                        <h2>احمد محمدی</h2>
-                                        <div class="icon">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                        </div>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
 
-                                    </div>
-
-                                    <div class="reviews-single-card">
-                                        <div class="img-area">
-                                            <img src="assets/images/testimonial/testimonial-3.png" alt="Images">
-                                        </div>
-                                        <h2>سارا افشار</h2>
-                                        <div class="icon">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                        </div>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-
-                                    </div>
-                                    <div class="reviews-single-card">
-                                        <div class="img-area">
-                                            <img src="assets/images/testimonial/testimonial-4.png" alt="Images">
-                                        </div>
-                                        <h2>رضا ویسی</h2>
-                                        <div class="icon">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                        </div>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-
-                                    </div>
-
-                                    <div class="review-form">
-                                        <h3>یک نظر بنویسید</h3>
-                                        <form>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <form asp-controller="Course" asp-action="CreateComment"
+                                              data-ajax="true"
+                                              data-ajax-method="post"
+                                              data-ajax-mode="replace"
+                                              data-ajax-update="#listComment"
+                                              data-ajax-success="Success">
+                                            <input type="hidden" name="comment.CourseId" value="@Model.CourseId" />
                                             <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>نام</label>
-                                                        <input type="text" class="form-control" id="name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>ایمیل</label>
-                                                        <input type="email" class="form-control" id="email">
-                                                    </div>
-                                                </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <label>متن نظر</label>
-                                                        <textarea class="form-control" id="review" rows="4"></textarea>
+                                                        <textarea name="comment.Comment" class="form-control" id="review" rows="4" placeholder="نظر شما ..."></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="default-btn btn">ارسال </button>
+
+                                            <button type="submit" class="default-btn btn mt-3">ارسال </button>
                                         </form>
+                                    }
+                                    else
+                                    {
+                                        <div class=" alert alert-danger">
+                                            جهت ثبت نظر باید وارد سایت شوید.
+                                        </div>
+                                    }
+
+                                    <hr />
+
+                                    <div id="listComment">
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
 
+
+@section Scripts{
+    <script src="/assets/js/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script>
+        function Success() {
+            $("#review").val("")
+        }
+
+        $(function () {
+            $("#listComment").load("/Course/ShowComment/" + @Model.CourseId)
+        })
+        function pageComment(pageid) {
+            $("#listComment").load("/Course/ShowComment/" + @Model.CourseId+"?pageid=" + pageid)
+        }
+    </script>
+}
