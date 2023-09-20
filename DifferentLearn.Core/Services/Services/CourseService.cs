@@ -406,5 +406,36 @@ namespace DifferentLearn.Core.Services.Services
         {
             return await _context.CourseGroups.FindAsync(groupid);
         }
+
+        public async Task AddVoteAsync(int userid, int courseid, bool vote)
+        {
+            var userVote = _context.CourseVotes.FirstOrDefault(c => c.UserId == userid && c.CourseId == courseid);
+            if (userVote!=null)
+            {
+                userVote.Vote = vote;
+            }
+            else
+            {
+                userVote = new CourseVote()
+                {
+                    CourseId = courseid,
+                    UserId = userid,
+                    Vote = vote
+                };
+                _context.CourseVotes.Add(userVote);
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Tuple<int, int>> GetCourseVoteAsync(int courseid)
+        {
+            var votes=await _context.CourseVotes.Where(v=>v.CourseId==courseid).Select(c=>c.Vote).ToListAsync();
+            return Tuple.Create(votes.Count(c => c), votes.Count(c => !c));
+        }
+
+        public async Task<bool> IsFreeAsync(int courseid)
+        {
+            return await _context.Courses.Where(c => c.CourseId == courseid).Select(c => c.CoursePrice).FirstAsync() == 0;
+        }
     }
 }

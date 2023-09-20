@@ -44,8 +44,20 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<CourseInfoViewModel> GetCourseInfoForShowAsync(int courseid);
         #endregion
 
+        #region Comment
         Task AddCommentAsync(CourseComment comment);
-        Task<Tuple<List<CourseComment>,int>> GetCourseCommentsAsync(int courseid ,int pageid=1);
-       
+        Task<Tuple<List<CourseComment>, int>> GetCourseCommentsAsync(int courseid, int pageid = 1);
+        #endregion
+
+        #region Vote
+
+        Task AddVoteAsync(int userid, int courseid, bool vote);
+        Task<Tuple<int, int>> GetCourseVoteAsync(int courseid);
+        Task<bool> IsFreeAsync(int courseid);
+        #endregion
+
+
+
+
     }
 }

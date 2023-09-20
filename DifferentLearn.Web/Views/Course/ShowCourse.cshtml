@@ -1,5 +1,6 @@
 ﻿@using DifferentLearn.Core.Convertors;
 @using DifferentLearn.Core.Services.Interfaces;
+@using DifferentLearn.Data.Entites.Course;
 @model DifferentLearn.Core.DTOs.Course.CourseInfoViewModel
 @inject IOrderService _orderservice;
 @{
@@ -105,6 +106,11 @@
                         <ul>
                             <li><i class="status"> وضعیت دوره:  </i>@Model.Status</li>
                             <li><i class="fa-level-up"> سطح دوره:  </i>@Model.Level</li>
+                            <li>
+                                <div id="vote">
+                                    
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <img src="/assets/images/courseavatar/image/@Model.CourseImage" alt="Image">
@@ -113,17 +119,17 @@
                     <div class="container p-0">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link " id="nav-overview-tab" data-bs-toggle="tab" data-bs-target="#nav-overview" type="button" role="tab" aria-controls="nav-overview" aria-selected="false">درباره دوره</button>
+                                <button class="nav-link active" id="nav-overview-tab" data-bs-toggle="tab" data-bs-target="#nav-overview" type="button" role="tab" aria-controls="nav-overview" aria-selected="false">درباره دوره</button>
 
                                 <button class="nav-link" id="nav-curriculum-tab" data-bs-toggle="tab" data-bs-target="#nav-curriculum" type="button" role="tab" aria-controls="nav-curriculum" aria-selected="true">جلسات دوره</button>
 
-                                <button class="nav-link active" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews" aria-selected="false"> نظرات</button>
+                                <button class="nav-link " id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews" aria-selected="false"> نظرات</button>
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
+                            <div class="tab-pane fade active show" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
                                 <div class="overview">
-                                    <
+                                    
                                     <h3>شرح دوره</h3>
                                     <p>
                                         @Html.Raw(@Model.Description)
@@ -146,6 +152,16 @@
                                             <p>بعد از ثبت نام در این دوره و تایید فاکتور لینک های دانلود برای شما فعال خواهد شد</p>
                                         </div>
                                     }
+                                    @if (ViewBag.Episode!=null)
+                                    {
+                                        CourseEpisode episode = ViewBag.Episode as CourseEpisode;
+
+
+                                        <h2>@episode.EpisodeTitle</h2>
+                                        <video style="width:100%;" controls>
+                                            <source src="@ViewBag.filepath"/>
+                                        </video>
+                                    }
                                     <ul style="list-style:ethiopic-numeric;">
                                   
                                         @foreach (var item in Model.Episodes)
@@ -156,6 +172,7 @@
                                                     <a href="/downloadfile/@item.EpisodeId">
                                                         @item.EpisodeTitle :
                                                     </a>
+                                                    
                                                 }
                                                 else
                                                 {
@@ -170,6 +187,14 @@
                                                 {
                                                     <i class=" text text-danger">نقدی</i>
                                                 }
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    if (item.IsFree || IsUserIncourse)
+                                                    {
+                                                        <a href="/ShowCourse/@Model.CourseId?episode=@item.EpisodeId">تماشا</a>
+                                                    }
+                                                    
+                                                }
                                                 <span>@item.EpisodeTime</span>
                                             </li>
                                         }
@@ -178,7 +203,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade active show" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
+                            <div class="tab-pane fade " id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
                                 <div class="reviews">
 
                                     @if (User.Identity.IsAuthenticated)
@@ -229,14 +254,23 @@
 
     <script>
         function Success() {
-            $("#review").val("")
+            $("#review").val("");
         }
 
         $(function () {
-            $("#listComment").load("/Course/ShowComment/" + @Model.CourseId)
+            $("#listComment").load("/Course/ShowComment/" + @Model.CourseId);
         })
         function pageComment(pageid) {
-            $("#listComment").load("/Course/ShowComment/" + @Model.CourseId+"?pageid=" + pageid)
+            $("#listComment").load("/Course/ShowComment/" + @Model.CourseId+"?pageid=" + pageid);
+        }
+        $(function () {
+            $("#vote").load("/course/coursevote/@Model.CourseId");
+        });
+
+        function vote(vote) {
+            $("#vote").fadeOut('slow')
+            $("#vote").load("/course/Addvote/@(Model.CourseId)?vote=" + vote);
+            $("#vote").fadeIn('slow')
         }
     </script>
 }

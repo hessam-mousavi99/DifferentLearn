@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
- 
+
 
 #region Containers
 
@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(options =>
 }).AddCookie(options =>
 {
     options.LoginPath = "/Login";
-    options.LogoutPath= "/Logout";
+    options.LogoutPath = "/Logout";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
 
 });
@@ -42,7 +42,7 @@ builder.Services.AddDbContext<DiffLearnContext>(option =>
 #region Ioc
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IWalletService, WalletService>();
-builder.Services.AddTransient<IAdminService,AdminService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
 builder.Services.AddTransient<IPermissionService, Permissionservice>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 builder.Services.AddTransient<ICourseService, CourseService>();
@@ -57,6 +57,28 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.Value.ToString().ToLower().StartsWith("/assets/Coursefilesonline"))
+    {
+        var callingurl = context.Request.Headers["Referer"].ToString();
+        if (callingurl != "" && (callingurl.StartsWith("http://localhost:44361") || callingurl.StartsWith("https://localhost:7262")))
+        {
+            await next.Invoke();
+        }
+        else
+        {
+            context.Response.Redirect("/Login");
+        }
+    }
+    else
+    {
+        //ejaze dadan b raftan b middleware badi
+        await next.Invoke();
+    }
+
+});
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
