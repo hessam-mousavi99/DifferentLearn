@@ -18,7 +18,7 @@
     <div class="desktop-nav">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-light">
-                <a class="navbar-brand" " href="/">
+                <a class="navbar-brand"  href="/">
 
                     <img src="/assets/images/logo.png" class="main-logo" alt="logo">
                     <img src="/assets/images/1.png" class="main-logo" alt="logo">
@@ -28,7 +28,7 @@
                     <ul>
                         <li>
                             <form action="/Course" method="get" class="search-form">
-                                <input type="text" class="form-control" name="filter" placeholder="جستجو...">
+                                <input type="text" class="form-control" name="filter" id="autFilter" placeholder="جستجو...">
                                 <button type="submit" class="src-btn">
                                     <i class="ri-search-line"></i>
                                 </button>
@@ -108,7 +108,7 @@
                         <ul>
                             <li>
                                 <form action="/Course" method="get" class="search-form">
-                                    <input type="text" name="filter" class="form-control" placeholder="جستجو...">
+                                    <input type="text" name="filter" id="autFilter" class="form-control" placeholder="جستجو...">
                                     <button type="submit" class="src-btn">
                                         <i class="ri-search-line"></i>
                                     </button>
@@ -140,3 +140,14 @@
     </div>
 </div>
 <!-- End Navbar Area -->
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#autFilter").autocomplete({
+                source: [
+                    URL: "https://localhost:44361/api/courseapi/search?term=" + $("#autFilter").val()
+                ]
+            });
+        });
+    </script>
+}

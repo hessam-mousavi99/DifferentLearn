@@ -19,7 +19,9 @@
     </div>
 }
 <!--Start category area-->
-@await Component.InvokeAsync("CourseGroupComponent")
+<cache expires-after="TimeSpan.FromMinutes(5)">
+    @await Component.InvokeAsync("CourseGroupComponent")
+</cache>
 
 <!--End category area-->
 <!--Start Courses area-->
