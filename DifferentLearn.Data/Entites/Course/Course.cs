@@ -82,6 +82,7 @@ namespace DifferentLearn.Data.Entites.Course
         public ICollection<OrderDetail>? OrderDetails { get; set; }
         public ICollection<UserCourse>? UserCourses { get; set; }
         public ICollection<CourseComment>? CourseComments { get; set; }
+        public ICollection<CourseVote>? CourseVotes { get; set; }
         #endregion
 
     }

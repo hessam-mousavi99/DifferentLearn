@@ -47,6 +47,7 @@ namespace DifferentLearn.Data.Contexts
         public DbSet<CourseStatus> CourseStatuses { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }
         public DbSet<CourseComment> CourseComments { get; set; }
+        public DbSet<CourseVote> CourseVotes { get; set; }
         #endregion
 
         #region Order

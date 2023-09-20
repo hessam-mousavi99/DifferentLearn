@@ -61,6 +61,7 @@ namespace DifferentLearn.Data.Entites.User
         public ICollection<UserCourse>? UserCourses { get; set; }
         public ICollection<Order.UserDisCountCode>? UserDisCountCodes { get; set; }
         public ICollection<CourseComment>? CourseComments { get; set; }
+        public ICollection<CourseVote>? CourseVotes { get; set; }
         #endregion
 
     }
