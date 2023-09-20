@@ -6,7 +6,7 @@
 .vs
 bin
 obj
-
+.vscode
 appsettings.json
 appsettings.Development.json
 DifferentLearn.Web.csproj
