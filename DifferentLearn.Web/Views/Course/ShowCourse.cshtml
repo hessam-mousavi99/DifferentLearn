@@ -123,10 +123,19 @@
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
                                 <div class="overview">
+                                    <
                                     <h3>شرح دوره</h3>
                                     <p>
                                         @Html.Raw(@Model.Description)
                                     </p>
+                                    <hr />
+                                    @if (!string.IsNullOrEmpty(Model.Demofile))
+                                    {
+                                        <video style="width:100%;" controls poster="/assets/images/courseavatar/image/@Model.CourseImage">
+                                            <source src="/assets/images/courseavatar/demoes/@Model.Demofile" />
+
+                                        </video>
+                                    }
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="nav-curriculum" role="tabpanel" aria-labelledby="nav-curriculum-tab">
@@ -138,7 +147,7 @@
                                         </div>
                                     }
                                     <ul style="list-style:ethiopic-numeric;">
-                                        <li>@Model.Demofile</li>
+                                  
                                         @foreach (var item in Model.Episodes)
                                         {
                                             <li>
