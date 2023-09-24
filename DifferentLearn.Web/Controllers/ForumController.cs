@@ -1,5 +1,6 @@
 ﻿using DifferentLearn.Core.Services.Interfaces;
 using DifferentLearn.Data.Entites.Question;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -49,6 +50,8 @@ namespace DifferentLearn.Web.Controllers
         {
             if (!string.IsNullOrEmpty(Body))
             {
+                var sanitizer = new HtmlSanitizer();
+                Body=sanitizer.Sanitize(Body);
                 _forumService.AddAnswerAsync(new Answer()
                 {
                     BodyAnswer = Body,
