@@ -2,6 +2,7 @@
 using DifferentLearn.Core.Services.Interfaces;
 using DifferentLearn.Data.Contexts;
 using DifferentLearn.Data.Entites.Question;
+using DifferentLearn.Data.Entites.User;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,16 @@ namespace DifferentLearn.Core.Services.Services
             }
             _context.UpdateRange(answers);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Question>> GetQuestionsAsync(int? courseid, string filter = "")
+        {
+            IQueryable<Question> res = _context.Questions.Where(q => EF.Functions.Like(q.Title, $"%{filter}%"));
+            if (courseid != null)
+            {
+                res = res.Where(q => q.CourseId == courseid);
+            }
+            return await res.Include(q=>q.User).ToListAsync();
         }
 
         public async Task<ShowQuestionViewModel> ShowQuestionAsync(int id)

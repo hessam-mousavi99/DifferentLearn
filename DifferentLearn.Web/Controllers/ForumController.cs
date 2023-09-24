@@ -14,9 +14,10 @@ namespace DifferentLearn.Web.Controllers
         {
             _forumService = forumService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? courseid,string filter="")
         {
-            return View();
+            ViewBag.CourseId=courseid;
+            return View(await _forumService.GetQuestionsAsync(courseid,filter));
         }
         [Authorize]
         public IActionResult CreateQuestion(int id)
@@ -41,18 +42,18 @@ namespace DifferentLearn.Web.Controllers
             return Redirect($"/Forum/ShowQuestion/{questionId}");
         }
 
-        public  async Task<IActionResult> ShowQuestion(int id)
+        public async Task<IActionResult> ShowQuestion(int id)
         {
             return View(await _forumService.ShowQuestionAsync(id));
         }
         [HttpPost]
-        public IActionResult Answer(int id,string Body)
+        public async Task<IActionResult> Answer(int id, string Body)
         {
             if (!string.IsNullOrEmpty(Body))
             {
                 var sanitizer = new HtmlSanitizer();
-                Body=sanitizer.Sanitize(Body);
-                _forumService.AddAnswerAsync(new Answer()
+                Body = sanitizer.Sanitize(Body);
+                await _forumService.AddAnswerAsync(new Answer()
                 {
                     BodyAnswer = Body,
                     CreateDate = DateTime.Now,
@@ -65,11 +66,11 @@ namespace DifferentLearn.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> SelectTrueAnswer(int questionid,int answerid)
+        public async Task<IActionResult> SelectTrueAnswer(int questionid, int answerid)
         {
             int currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
             var question = await _forumService.ShowQuestionAsync(questionid);
-            if (question.Question.UserId==currentUserId)
+            if (question.Question.UserId == currentUserId)
             {
                 _forumService.ChangeIsTrueAnswerAsync(questionid, answerid);
             }

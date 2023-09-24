@@ -90,7 +90,8 @@
                         </ul>
                     </div>
                     <div class="share">
-                        <a href="/forum/CreateQuestion/@Model.CourseId" class="btn btn-primary">پرسش و پاسخ دوره</a>
+                        <a class="btn btn-block btn-primary " asp-action="Index" asp-controller="Forum" asp-route-courseid="@Model.CourseId"> پرسش و پاسخ </a>
+                    @*     <a href="/forum/@Model.CourseId" class="btn btn-primary">پرسش و پاسخ دوره</a> *@
                     </div>
                     <div class="share">
                         <h5>کلمات کلیدی دوره</h5>

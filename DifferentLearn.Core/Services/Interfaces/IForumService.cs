@@ -13,6 +13,7 @@ namespace DifferentLearn.Core.Services.Interfaces
         #region Question
         Task<int> AddQuestionAsync(Question question);
         Task<ShowQuestionViewModel> ShowQuestionAsync(int id);
+        Task<IEnumerable<Question>> GetQuestionsAsync(int? courseid,string filter="");
         #endregion
 
         #region Answer

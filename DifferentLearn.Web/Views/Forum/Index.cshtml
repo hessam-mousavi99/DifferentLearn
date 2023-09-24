@@ -1,0 +1,84 @@
+﻿@using DifferentLearn.Core.Convertors
+@using DifferentLearn.Core.Services.Interfaces
+@using DifferentLearn.Data.Entites.Course;
+@using DifferentLearn.Data.Entites.Question
+@model IEnumerable<Question>
+@inject ICourseService _courseService;
+@inject IOrderService _orderService;
+@{
+    ViewData["Title"] = "انجمن";
+  
+}
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li style="margin:5px;"><a href="/">خانه</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="/forum">انجمن</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="inner" style="padding:10px;">
+                <div class="buy-now-area">
+                    @if (ViewBag.CourseId != null)
+                    {
+                       
+                            var course = await _courseService.GetCourseByIdAsync((int)ViewBag.CourseId);
+                        
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            if (course.CoursePrice != 0 && await _orderService.IsUserInCourseAsync(User.Identity.Name, (int)ViewBag.CourseId))
+                            {
+                                <a asp-action="CreateQuestion" asp-route-id="@ViewBag.CourseId" style="margin:10px" class="btn btn-success">
+                                    پرسیدن سوال
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="alert alert-danger">
+                                    شما این دوره را خریداری نکردید
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">
+                                برای پرسیدن سوال ابتدا باید وارد سایت شوید.
+                            </div>
+                        }
+                    }
+
+                    <form class="form-inline" asp-action="Index" method="get">
+                        <input placeholder="عبارت را وارد کنید" type="text" class="form-control" name="filter" style="margin-bottom:10px;"/>
+                        <button type="submit" style="margin:10px" class="btn btn-success">بیاب</button>
+                        <input type="hidden" name="courseId" value="@ViewBag.CourseId" />
+                    </form>
+                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-12 " style="margin-bottom:15px;">
+                        <div class="buy-now-area">
+                            <div class="buy-content">
+                                <img style="margin:0 20px 0 0; max-width:100px;max-height:100px;" src="/assets/images/UserAvatar/@item.User.UserAvatar" />
+                                <span style="margin-left:20px;">پرسش گر: @item.User.UserName</span>
+                                <span>تاریخ پرسش: @item.CreateDate.ToShamsi()</span>
+                            </div>
+
+                        </div>
+                       <a href="/forum/showquestion/@item.QuestionId">
+                            <div class="details">
+                                <h3>عنوان پرسش:@item.Title </h3>
+
+                                <div>
+                                    متن پرسش:    @Html.Raw(item.Body)
+                                </div>
+                            </div>
+                       </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
