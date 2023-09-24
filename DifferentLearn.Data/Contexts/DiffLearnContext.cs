@@ -1,6 +1,7 @@
 ﻿using DifferentLearn.Data.Entites.Course;
 using DifferentLearn.Data.Entites.Order;
 using DifferentLearn.Data.Entites.Permission;
+using DifferentLearn.Data.Entites.Question;
 using DifferentLearn.Data.Entites.User;
 using DifferentLearn.Data.Entites.Wallet;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,12 @@ namespace DifferentLearn.Data.Contexts
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<DisCount> DisCounts { get; set; }
         public DbSet<UserDisCountCode> UserDisCountCodes { get; set; }
+        #endregion
+
+
+        #region Relation
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

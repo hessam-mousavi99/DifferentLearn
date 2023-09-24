@@ -1,0 +1,118 @@
+﻿@using DifferentLearn.Core.Convertors;
+@using DifferentLearn.Core.DTOs.Question;
+@using System.Security.Claims;
+@model ShowQuestionViewModel
+
+@{
+    ViewData["Title"] = Model.Question.Title;
+}
+<style>
+    .IsTrue{
+        border:3px solid green;
+        background-color: #00cc0d;
+    }
+</style>
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li style="margin:5px;"><a href="/">خانه</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="">پرسش و پاسخ دوره</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="">@Model.Question.Title</a></li>
+    </ul>
+</nav>
+<div class="courses-details pt-50 pb-50">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 " style="margin-bottom:15px;">
+                <div class="buy-now-area">
+                    <div class="buy-content">
+                        <img style="margin:0 20px 0 0; max-width:100px;max-height:100px;" src="/assets/images/UserAvatar/@Model.Question.User.UserAvatar" />
+                        <span style="margin-left:20px;">پرسش گر: @Model.Question.User.UserName</span>
+                        <span>تاریخ پرسش: @Model.Question.CreateDate.ToShamsi()</span>
+                    </div>
+
+                </div>
+                <div class="details">
+                    <h3>عنوان پرسش:@Model.Question.Title </h3>
+                 
+                    <div>
+                        متن پرسش:    @Html.Raw(Model.Question.Body)
+                    </div>
+                </div>
+            </div>
+       
+        </div>
+        @foreach (var item in Model.Answers)
+        {
+            <div class="row">
+                <div class="col-lg-12" style="margin-bottom:15px;">
+                    <div class="buy-now-area bg-info">
+                        <div class="buy-content">
+                            <ul style="list-style:none;">
+                                <img style="margin:0 20px 0 0; max-width:100px;max-height:100px;" src="/assets/images/UserAvatar/@item.User.UserAvatar" />
+                                <span style="margin-left:20px;">پاسخ دهنده: @item.User.UserName</span>
+                                <span>تاریخ پاسخ: @item.CreateDate.ToShamsi()</span>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="details @((item.IsTrue)?"IsTrue":"")">
+                       
+                        <div>
+                            متن پاسخ:    @Html.Raw(item.BodyAnswer)
+                            @if (User.Identity.IsAuthenticated&&Model.Question.UserId==int.Parse(User.FindFirstValue(claimType:ClaimTypes.NameIdentifier).ToString()))
+                            {
+                                <p><a asp-action="SelectTrueAnswer" asp-route-answerid="@item.AnswerId" asp-route-questionid="@Model.Question.QuestionId" as class="btn btn-success pull-left">پاسخ صحیح</a></p>
+                            }
+                        </div>
+                       
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div class="container">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row" style="margin: 25px">
+            <h2>ثبت پاسخ جدید</h2>
+            <hr />
+            <div class="col-md-12">
+                <form asp-action="Answer">
+                    <input type="hidden" name="id" value="@Model.Question.QuestionId" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">متن پاسخ</label>
+                        <textarea name="Body" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="ثبت پاسخ" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            برای پاسخ دادن به این سوال ابتدا باید <a href="/login">وارد</a> شوید.
+        </div>
+    }
+</div>
+
+@section Scripts
+    {
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Body', {
+            customConfig: '/assets/js/Config.js'
+        });
+
+    </script>
+}

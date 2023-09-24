@@ -1,5 +1,6 @@
 ﻿using DifferentLearn.Data.Entites.Course;
 using DifferentLearn.Data.Entites.Order;
+using DifferentLearn.Data.Entites.Question;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -62,6 +63,8 @@ namespace DifferentLearn.Data.Entites.User
         public ICollection<Order.UserDisCountCode>? UserDisCountCodes { get; set; }
         public ICollection<CourseComment>? CourseComments { get; set; }
         public ICollection<CourseVote>? CourseVotes { get; set; }
+        public ICollection<Question.Question>? Questions { get; set; }
+        public ICollection<Answer>? Answers { get; set; }
         #endregion
 
     }
