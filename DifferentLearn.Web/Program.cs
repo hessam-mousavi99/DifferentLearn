@@ -58,7 +58,14 @@ builder.Services.AddTransient<IForumService, ForumService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode==404)
+    {
+        context.Response.Redirect("/Home/Error404");
+    }
+});
 app.Use(async (context, next) =>
 {
     if (context.Request.Path.Value.ToString().ToLower().StartsWith("/assets/Coursefilesonline"))

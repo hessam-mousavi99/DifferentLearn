@@ -22,7 +22,7 @@ namespace DifferentLearn.Web.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _courseService.GetShowCourseListViewItemAsync());
-        } 
+        }
 
 
 
@@ -86,6 +86,11 @@ namespace DifferentLearn.Web.Controllers
 
             return Json(new { uploaded = true, url });
         }
+        public IActionResult Error404()
+        {
+            return View();
+        }
     }
+
 
 }
