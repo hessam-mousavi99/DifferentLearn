@@ -31,6 +31,8 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task<Course> GetCourseByIdAsync(int courseid);
 
         Task UpdateCourseAsync(Course course, IFormFile imgcourse, IFormFile democourse);
+        Task<List<Course>> GetAllMasterCoursesAsync(string username);
+
         #endregion
 
 
@@ -42,6 +44,8 @@ namespace DifferentLearn.Core.Services.Interfaces
         Task EditEpisodeAsync(CourseEpisode courseepisode, IFormFile episodefile);
         Task<Tuple<List<ShowCourseListViewItem>,int>> GetShowCourseListViewItemAsync(int pageId=1,string filter="",string getType="all",string orderByType="date",int startPrice=0,int EndPrice=0,List<int> selectedGroups=null, int take = 0);
         Task<CourseInfoViewModel> GetCourseInfoForShowAsync(int courseid);
+        Task<List<CourseEpisode>> GetCourseEpisodesByCourseIdAsync(int courseid);
+        Task<bool> AddEpisodeAsync(AddEpisodeViewModel episodeViewModel, string userName);
         #endregion
 
         #region Comment

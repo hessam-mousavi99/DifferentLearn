@@ -31,7 +31,7 @@ namespace DifferentLearn.Core.Services.Services
         }
         public async Task<List<CourseGroup>> GetAllGroupAsync()
         {
-            return await _context.CourseGroups.Include(c=>c.CourseGroups).ToListAsync();
+            return await _context.CourseGroups.Include(c => c.CourseGroups).ToListAsync();
         }
 
         public async Task<List<SelectListItem>> GetGroupFroManageCourseAsync()
@@ -385,9 +385,9 @@ namespace DifferentLearn.Core.Services.Services
         {
             int take = 5;
             int skip = (pageid - 1) * take;
-            int pageCount= (int)Math.Ceiling((decimal)_context.CourseComments.Where(c=>!c.IsDelete&&c.CourseId==courseid).Count() / (decimal)take);
-            return Tuple.Create(await _context.CourseComments.Include(c=>c.User).Where(c => !c.IsDelete 
-            && c.CourseId == courseid).Skip(skip).Take(take).OrderByDescending(c=>c.CreateDate).ToListAsync(), pageCount);
+            int pageCount = (int)Math.Ceiling((decimal)_context.CourseComments.Where(c => !c.IsDelete && c.CourseId == courseid).Count() / (decimal)take);
+            return Tuple.Create(await _context.CourseComments.Include(c => c.User).Where(c => !c.IsDelete
+            && c.CourseId == courseid).Skip(skip).Take(take).OrderByDescending(c => c.CreateDate).ToListAsync(), pageCount);
         }
 
         public async Task AddGroupAsync(CourseGroup group)
@@ -410,7 +410,7 @@ namespace DifferentLearn.Core.Services.Services
         public async Task AddVoteAsync(int userid, int courseid, bool vote)
         {
             var userVote = _context.CourseVotes.FirstOrDefault(c => c.UserId == userid && c.CourseId == courseid);
-            if (userVote!=null)
+            if (userVote != null)
             {
                 userVote.Vote = vote;
             }
@@ -429,13 +429,53 @@ namespace DifferentLearn.Core.Services.Services
 
         public async Task<Tuple<int, int>> GetCourseVoteAsync(int courseid)
         {
-            var votes=await _context.CourseVotes.Where(v=>v.CourseId==courseid).Select(c=>c.Vote).ToListAsync();
+            var votes = await _context.CourseVotes.Where(v => v.CourseId == courseid).Select(c => c.Vote).ToListAsync();
             return Tuple.Create(votes.Count(c => c), votes.Count(c => !c));
         }
 
         public async Task<bool> IsFreeAsync(int courseid)
         {
             return await _context.Courses.Where(c => c.CourseId == courseid).Select(c => c.CoursePrice).FirstAsync() == 0;
+        }
+
+        public async Task<List<Course>> GetAllMasterCoursesAsync(string username)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+            int userid = user.UserId;
+            var courses = await _context.Courses.Include(s => s.CourseStatus).Include(s => s.CourseEpisodes).Where(s => s.TeacherId == userid).ToListAsync();
+            return courses;
+        }
+
+        public async Task<List<CourseEpisode>> GetCourseEpisodesByCourseIdAsync(int courseid)
+        {
+            var episodes = await _context.CourseEpisodes.Include(s => s.Course).Where(s => s.CourseId == courseid).ToListAsync();
+            return episodes;
+        }
+
+        public async Task<bool> AddEpisodeAsync(AddEpisodeViewModel episodeViewModel, string userName)
+        {
+            var course = await GetCourseByIdAsync(episodeViewModel.CourseId);
+
+            var userId = _context.Users.FirstOrDefault(s => s.UserName == userName).UserId;
+
+            if (course == null || course.TeacherId != userId)
+            {
+                return false;
+            }
+
+            var episode = new CourseEpisode()
+            {
+                CourseId = course.CourseId,
+                IsFree = episodeViewModel.IsFree,
+                EpisodeTitle = episodeViewModel.EpisodeTitle,
+                EpisodeTime = episodeViewModel.EpisodeTime,
+                EpisodeFileName = episodeViewModel.EpisodeFileName
+            };
+
+            await _context.CourseEpisodes.AddAsync(episode);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

@@ -1,0 +1,116 @@
+﻿@using DifferentLearn.Core.DTOs.Course;
+@model AddEpisodeViewModel
+@{
+    ViewData["Title"] = "افزودن جلسه جدید";
+}
+
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li style="margin:5px;"><a href="/">خانه</a></li>
+        <li style="margin:5px;">/</li>
+        <li style="margin:5px;"><a href="/">@ViewData["Title"]</a></li>
+    </ul>
+</nav>
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_Sidebar" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+
+                    <section class="user-account-content">
+                        <header><h1> @ViewData["Title"] </h1></header>
+                        <div class="inner form-layer">
+                            <form asp-action="AddEpisode" enctype="multipart/form-data" method="post">
+                                <input type="hidden" asp-for="CourseId" />
+                                <input type="hidden" asp-for="EpisodeFileName" />
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="title"><i class="zmdi zmdi-account"></i></span>
+                                            <input asp-for="EpisodeTitle" type="text" class="form-control" placeholder="عنوان جلسه">
+                                            <span asp-validation-for="EpisodeTitle" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="time"><i class="zmdi zmdi-account"></i></span>
+                                            <input asp-for="EpisodeTime" type="text" class="form-control" placeholder="00:00:00">
+                                            <span asp-validation-for="EpisodeTime" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox-layer">
+                                            <label>
+                                                <input type="checkbox" asp-for="IsFree" />
+                                                رایگان است
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div data-url="@Url.Action("DropzoneTarget","Master",new {courseid = Model.CourseId})" class="dropzone mt-4" id="mydropzone">
+                                        <div class="fallback">
+                                            <input name="files" type="file" multiple />
+                                        </div>
+                                        <div class="dz-message">
+                                            <i class="zmdi zmdi-upload"></i>
+                                            <span>فایل خود را انتخاب و یا به داخل جعبه بیندازید</span>
+                                        </div>
+                                    </div>
+                                    <div style="margin:5px 0px;" class="col-md-7 col-sm-8 col-xs-12">
+                                        <button id="SubmitBtn" class="btn btn-success btn-outline-dark"> ثبت قسمت جدید </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts{
+    <script>
+        function DropzoneParameterName() {
+            return 'files';
+        }
+        Dropzone.options.mydropzone = {
+            url: $("#mydropzone").attr("data-url"),
+            parallelUploads: 1, // How Many Files process in parallel
+            uploadMultiple: true, // Add Multiple To fallback input - Cant Use With chunking
+            maxFilesize: 100000000, // In byte - 100000000 is 100 mb
+            paramName: DropzoneParameterName, // if uploadMultiple is true set as true for add [] in name
+            maxFiles: 1, // If not null defines how many files this Dropzone handles. If it exceeds, the event maxfilesexceeded will be called.
+            acceptedFiles: '.rar, .zip', // default is null - This is a comma separated list of mime types or file extensions [image/*,application/pdf,.psd]
+            init: function () {
+                this.on("errormultiple",
+                    function (file, message) {
+                        swal("Error", message, "error");
+                    });
+                this.on("sendingmultiple",
+                    function (file) {
+                        $("#SubmitBtn").prop("disabled", true);
+                    });
+                this.on("queuecomplete",
+                    function (file) {
+                        $("#SubmitBtn").prop("disabled", false);
+                    });
+                this.on("successmultiple",
+                    function (file, response) {
+                        if (response.status === "Success") {
+                            $("#EpisodeFileName").val(response.data);
+                        } else {
+                            swal("Error", "عملیات با خطا مواجه شد .", "error");
+                        }
+                    });
+                this.on("maxfilesreached",
+                    function (file) {
+                        this.removeEventListeners();
+                    });
+            }
+        }
+
+    </script>
+}

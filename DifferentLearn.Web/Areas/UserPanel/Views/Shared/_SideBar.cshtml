@@ -1,7 +1,7 @@
 ﻿@using DifferentLearn.Core.Convertors;
 
 @inject DifferentLearn.Core.Services.Interfaces.IUserService _userService
-
+@inject DifferentLearn.Core.Services.Interfaces.IPermissionService _permissionservice
 @{
     DifferentLearn.Core.DTOs.SideBarPanelViewModel Model = await _userService.GetSideBarUserPanelDataAsync(User.Identity.Name);
 }
@@ -23,7 +23,7 @@
         <section>
             <header><h3> میز کار </h3></header>
             <div class="inner">
-                <ul>
+                <ul style="list-style:none;">
                     <li><a href="/UserPanel"> مشاهده حساب کابری </a></li>
                     <li><a href="/userpanel/EditProfile"> ویرایش حساب کابری </a></li>
                     <li><a href="/userpanel/ChangePassword"> تغییر رمز عبور </a></li>
@@ -34,5 +34,16 @@
                 </ul>
             </div>
         </section>
+   @if (await _permissionservice.CheckPermissionAsync(10,User.Identity.Name))
+        {
+            <section>
+                <header><h3> پنل مدرس </h3></header>
+                <div class="inner">
+                    <ul style="list-style:none;">
+                        <li><a asp-area="UserPanel" asp-controller="Master" asp-action="MasterCoursesList"> مدیریت دوره ها </a></li>
+                    </ul>
+                </div>
+            </section>
+        }
     </aside>
 </div>
